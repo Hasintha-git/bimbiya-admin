@@ -1,0 +1,193 @@
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<mat-sidenav-container class="post-login-container" autosize>
+    <mat-sidenav #sidenav id="sidenav" class="post-login-sidenav" mode="side" [class.menu-open]="isVisible"
+        [class.menu-close]="!isVisible" opened>
+        <mat-list id="menus">
+            <mat-card class="mat-elevation-z0">
+                <mat-card-header style="display: flex;justify-content: center;">
+                    <img class="post-login-logo" src="../../../assets/images/bimbiya-logo.png" routerLink="/post-login/dashboard"  alt="">
+                </mat-card-header>
+            </mat-card>
+            <mat-list>
+                <button routerLink="dashboard" routerLinkActive="activated-route" class="menu-item" mat-flat-button>
+                      <img class="menu_img" src="../../../assets/icons/dashboard_FILL0_wght400_GRAD0_opsz48.svg" alt="">
+                    <span class="txt_route">Dashboard</span>
+                </button>
+            </mat-list>
+            <!-- <mat-list>
+                <button routerLink="customer-management" routerLinkActive="activated-route" class="menu-item"
+                    mat-flat-button>
+                  <img class="menu_img" src="../../../assets/icons/manage_accounts_FILL0_wght400_GRAD0_opsz48.svg">
+
+                  <span class="txt_route">Customer Management</span>
+                </button>
+            </mat-list>
+            <mat-list>
+                <button routerLink="foodcity-management" routerLinkActive="activated-route" class="menu-item"
+                    mat-flat-button>
+                  <img class="menu_img" src="../../../assets/icons/food_bank_FILL0_wght400_GRAD0_opsz48.svg">
+
+                  <span class="txt_route">Foodcity Management</span>
+                </button>
+            </mat-list>
+            <mat-list>
+                <button routerLink="bite-management" routerLinkActive="activated-route" class="menu-item"
+                    mat-flat-button>
+                  <img class="menu_img" src="../../../assets/icons/set_meal_FILL0_wght400_GRAD0_opsz48.svg">
+
+                  <span class="txt_route">Bite Management</span>
+                </button>
+            </mat-list> -->
+            <!-- <mat-list>
+                <button routerLink="pending-order" routerLinkActive="activated-route" class="menu-item"
+                    mat-flat-button>
+                  <img class="menu_img" src="../../../assets/icons/inactive_order_FILL0_wght400_GRAD0_opsz48.svg">
+
+                  <span class="txt_route">Pending Order</span>
+                </button>
+            </mat-list>
+            <mat-list>
+                <button routerLink="approved-order" routerLinkActive="activated-route" class="menu-item"
+                    mat-flat-button>
+                  <img class="menu_img" src="../../../assets/icons/order_play_FILL0_wght400_GRAD0_opsz48.svg">
+
+                  <span class="txt_route">Approved Order</span>
+                </button>
+            </mat-list>
+            <mat-list>
+                <button routerLink="delivered-order" routerLinkActive="activated-route" class="menu-item"
+                    mat-flat-button>
+                  <img class="menu_img" src="../../../assets/icons/order_approve_FILL0_wght400_GRAD0_opsz48.svg">
+
+                  <span class="txt_route">Delivered Order</span>
+                </button>
+            </mat-list> -->
+            <!-- <mat-list>
+                <button routerLink="trending-item" routerLinkActive="activated-route" class="menu-item"
+                    mat-flat-button>
+                  <img class="menu_img" src="../../../assets/icons/trending_up_FILL0_wght400_GRAD0_opsz48.svg">
+
+                  <span class="txt_route">Trending Item</span>
+                </button>
+            </mat-list> -->
+            <!-- <mat-list>
+                <button routerLink="category-management" routerLinkActive="activated-route" class="menu-item"
+                    mat-flat-button>
+                  <img class="menu_img" src="../../../assets/icons/category_FILL0_wght400_GRAD0_opsz48.svg">
+
+                  <span class="txt_route">Category Management</span>
+                </button>
+            </mat-list> -->
+            <mat-expansion-panel style="width: 95%; border-top-right-radius: 50px; border-bottom-right-radius: 50px;box-shadow: none;margin-top: 20px;">
+                <mat-expansion-panel-header>
+                    
+                  <mat-panel-title>
+                    <mat-icon>list_alt</mat-icon>
+                  </mat-panel-title>
+
+                  <mat-panel-description>
+                    Order Management
+                  </mat-panel-description>
+
+                </mat-expansion-panel-header>
+                    <button routerLink="pending-order" routerLinkActive="activated-route" class="menu-item"
+                        mat-flat-button>
+                      <span class="txt_route">Pending Order</span>
+                    </button>
+                    <button routerLink="approved-order" routerLinkActive="activated-route" class="menu-item"
+                        mat-flat-button>
+                      <span class="txt_route">Approved Order</span>
+                    </button>
+                    <button routerLink="delivered-order" routerLinkActive="activated-route" class="menu-item"
+                        mat-flat-button>
+                      <span class="txt_route">Delivered Order</span>
+                    </button>
+              </mat-expansion-panel>
+
+            <mat-expansion-panel style="width: 95%; border-top-right-radius: 50px; border-bottom-right-radius: 50px;box-shadow: none;margin-top: 20px;">
+                <mat-expansion-panel-header>
+                    
+                  <mat-panel-title>
+                    <mat-icon>settings</mat-icon>
+                  </mat-panel-title>
+
+                  <mat-panel-description>
+                    Bite Section
+                  </mat-panel-description>
+
+                </mat-expansion-panel-header>
+                    <button routerLink="bite-section" routerLinkActive="activated-route" class="menu-item"
+                        mat-flat-button>
+                      <span class="txt_route">Bite Management</span>
+                    </button>
+              </mat-expansion-panel>
+
+              <mat-expansion-panel style="width: 95%; border-top-right-radius: 50px; border-bottom-right-radius: 50px;box-shadow: none;margin-top: 20px;">
+                <mat-expansion-panel-header>
+                    
+                  <mat-panel-title>
+                    <mat-icon>person</mat-icon>
+                  </mat-panel-title>
+
+                  <mat-panel-description>
+                    User Management
+                  </mat-panel-description>
+
+                </mat-expansion-panel-header>
+                    <button routerLink="user-management" routerLinkActive="activated-route" class="menu-item"
+                        mat-flat-button>
+                      <span class="txt_route">User Management</span>
+                    </button>
+
+              </mat-expansion-panel>
+        </mat-list>
+      <!-- <div class="div_logout">
+        <mat-list>
+          <button (click)="logoutUser()" class="menu-item"
+                  mat-flat-button>
+            <img class="menu_img" src="../../../assets/icons/logout_FILL0_wght400_GRAD0_opsz48.svg" alt="">
+
+            <span class="txt_route">Logout</span>
+          </button>
+        </mat-list>
+      </div> -->
+    </mat-sidenav>
+
+
+
+
+
+    <mat-sidenav-content class="post-login-main-side">
+        <mat-toolbar class="header-bar">
+            <!-- (click)="sidenav.toggle()"  -->
+            <button (click)="onMenuToggle()" mat-icon-button class="menu-icon"
+                aria-label="Example icon-button with menu icon">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span class="active_router">{{activeRouter}}</span>
+            <span class="example-spacer"></span>
+            <button  mat-icon-button class="header-icon favorite-icon btn-signout" [matMenuTriggerFor]="menu">
+                <!-- <img   class="menu_img" src="../../../assets/icons/logout_FILL0_wght400_GRAD0_opsz48.svg" alt=""> -->
+                P
+            </button>
+
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon>person</mat-icon>
+                  <span>Register new user</span>
+                </button>
+            
+                <button mat-menu-item  (click)="logoutUser()">
+                    <mat-icon>logout</mat-icon>
+                  <span>Logout</span>
+                </button>
+              </mat-menu>
+        </mat-toolbar>
+        <div class="body-area">
+            <div class="sub-body-area">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

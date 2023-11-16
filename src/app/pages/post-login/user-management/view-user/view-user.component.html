@@ -1,0 +1,71 @@
+<div class="input-dialog-container">
+  <div class="dialog-title">View User</div>
+
+  <div class="btn-close" (click)="closeDialog()">
+  </div>
+  <div class="title-content-devider"></div>
+
+  <div class="dialog-input-fields">
+
+    <div class="view-data">
+      <label for="Username" class="label">Username</label>
+      <p title="{{userModel.username | empty}}" class="data">{{userModel.username | empty}}</p>
+    </div>
+    <div class="view-data">
+      <label for="Username" class="label">Full Name</label>
+      <p title="{{userModel.fullName | empty}}" class="data">{{userModel.fullName | empty}}</p>
+    </div>
+    <div class="view-data">
+      <label for="User Role" class="label">User Role</label>
+      <p title="{{userModel.userRoleDescription | empty}}" class="data">{{userModel.userRoleDescription | empty}}</p>
+    </div>
+    <div class="view-data">
+      <label for="NIC" class="label">NIC</label>
+      <p title="{{userModel.nic | empty}}" class="data">{{userModel.nic | empty}}</p>
+    </div>
+    <div class="view-data">
+      <label for="Date of Birth" class="label">Date of Birth</label>
+      <p title="{{userModel.dateOfBirth | empty}}" class="data">{{userModel.dateOfBirth | empty}}</p>
+    </div>
+    <div class="view-data">
+      <label for="Status" class="label">Status</label>
+      <p title="{{userModel.status | empty}}" class="data">{{userModel.status | empty}}</p>
+    </div>
+    <div class="view-data">
+      <label for="Email" class="label">Email</label>
+      <p title="{{userModel.email | empty}}" class="data">{{userModel.email | empty}}</p>
+    </div>
+    <div class="view-data">
+      <label for="Contact Number" class="label">Contact Number</label>
+      <p title="{{userModel.mobileNo | empty}}" class="data">{{userModel.mobileNo | empty}}</p>
+    </div>
+    <div class="view-data">
+      <label for="Address" class="label">Address</label>
+      <p title="{{userModel.address | empty}}" class="data">{{userModel.address | empty}}</p>
+    </div>
+    <div class="view-data">
+      <label for="City" class="label">City</label>
+      <p title="{{userModel.city | empty}}" class="data">{{userModel.city | empty}}</p>
+    </div>
+
+    <div class="view-data">
+      <label for="createdUser" class="label">Created User</label>
+      <p title="{{userModel.createdUser | empty}}" class="data">{{userModel.createdUser | empty}}</p>
+    </div>
+
+    <div class="view-data">
+      <label for="lastUpdatedUser" class="label">Last Updated User</label>
+      <p title="{{userModel.lastUpdatedUser | empty}}" class="data">{{userModel.lastUpdatedUser | empty}}</p>
+    </div>
+
+    <div class="view-data">
+      <label for="createdTime" class="label">Created Date & Time</label>
+      <p title="{{userModel.createdTime | empty}}" class="data">{{userModel.createdTime | empty}}</p>
+    </div>
+
+    <div class="view-data">
+      <label for="lastUpdatedTime" class="label">Last Updated Date & Time</label>
+      <p title="{{userModel.lastUpdatedTime | empty}}" class="data">{{userModel.lastUpdatedTime | empty}}</p>
+    </div>
+  </div>
+</div>

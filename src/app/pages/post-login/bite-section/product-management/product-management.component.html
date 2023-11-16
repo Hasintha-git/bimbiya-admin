@@ -1,0 +1,173 @@
+<form class="main-form">
+    <div class="common-input-field-section">
+        <div class="input-fields">
+            <mat-form-field class="min-field" appearance="outline">
+              <mat-label>User Name</mat-label>
+              <input matInput type="text" [formControl]="username" [(ngModel)]="searchModel.username" appRegex
+                regexType="letter_num_space" [attr.maxlength]="20" />
+            </mat-form-field>
+          </div>
+      
+      
+      
+          <div class="input-fields">
+            <mat-form-field class="min-field " appearance="outline">
+              <mat-label>Mobile No</mat-label>
+              <input matInput type="text" [formControl]="mobileNo" [(ngModel)]="searchModel.mobileNo" appRegex
+                regexType="number" [attr.maxlength]="10" />
+            </mat-form-field>
+          </div>
+      
+      
+          <div class="input-fields">
+            <mat-form-field class="min-field " appearance="outline">
+              <mat-label>Nic</mat-label>
+              <input matInput type="text" [formControl]="nic" [(ngModel)]="searchModel.nic" appRegex
+                regexType="letter_num_space" [attr.maxlength]="12" />
+            </mat-form-field>
+          </div>
+      
+      
+          <div class="input-fields">
+            <mat-form-field class="min-field " appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput type="text" [formControl]="email" [(ngModel)]="searchModel.email" appRegex regexType="email"
+                [attr.maxlength]="30" />
+            </mat-form-field>
+          </div>
+      
+          <div class="input-fields" >
+            <mat-form-field class="min-field" appearance="outline">
+              <mat-label>User Role</mat-label>
+              <mat-select [formControl]="userRole" [(ngModel)]="searchModel.userRole">
+                <mat-option [value]="">Select User Role</mat-option>
+                <mat-option *ngFor="let ur of userRoleList" [value]="ur.code">
+                  {{ur.description}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+      
+          <div class="input-fields">
+            <mat-form-field class="min-field" appearance="outline">
+              <mat-label>Status</mat-label>
+              <mat-select [formControl]="status" [(ngModel)]="searchModel.status">
+                <mat-option [value]="">Select Status</mat-option>
+                <mat-option *ngFor="let st of statusList" [value]="st.code">
+                  {{st.description}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+    </div>
+  
+    <div class="common-button-section">
+      <button type="button" mat-button class="custom-button primary" (click)="searchUser(true)">Search
+      </button>
+      <button type="reset" mat-button class="custom-button secondary" (click)="resetUserSearch()">Reset
+      </button>
+      <button mat-button class="custom-button image-button" (click)="add()">
+        <img class="table-action-button" src="assets/images/icons/ic_plus.svg" alt="View">  Add User
+      </button>
+    </div>
+  </form>
+  <div class="common-table-section">
+    <div class="mat-elevation-z8">
+      <div class="scrollable-table">
+        <table mat-table [dataSource]="dataSourceUser" matSort>
+          <!-- action Column -->
+          <ng-container matColumnDef="view" sticky>
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element" class="table-action-buttons-column">
+              <a (click)="view(element.id)" class="table-action-buttons-column" title="View"><img
+                  class="table-action-button" src="assets/images/icons/ic_view.svg" alt="View">
+              </a>
+  
+            </td>
+          </ng-container>
+  
+          <!-- username Column -->
+          <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              User Name
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.username | empty}}</td>
+          </ng-container>
+  
+          <!-- fullName Column -->
+          <ng-container matColumnDef="fullName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Full Name
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.fullName | empty}}</td>
+          </ng-container>
+  
+          <!-- userRole Column -->
+          <ng-container matColumnDef="userRole">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              User Role
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.userRoleDescription | empty}}</td>
+          </ng-container>
+  
+  
+          <!-- nic Column -->
+          <ng-container matColumnDef="nic">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              NIC
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.nic | empty}}</td>
+          </ng-container>
+  
+  
+          <!-- email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Email
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.email | empty}}</td>
+          </ng-container>
+  
+          <!-- mobileNo Column -->
+          <ng-container matColumnDef="mobileNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Mobile No
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.mobileNo | empty}}</td>
+          </ng-container>
+  
+  
+          <!-- status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Status
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.status | empty}}</td>
+          </ng-container>
+  
+        
+          <!-- action Column -->
+          <ng-container matColumnDef="action" stickyEnd>
+            <th mat-header-cell *matHeaderCellDef>Delete</th>
+            <td mat-cell *matCellDef="let element" class="table-action-buttons-column">
+  
+  
+              <a (click)="delete(element.id)" class="table-action-buttons-column" title="Delete"><img
+                  class="table-action-button" src="assets/images/icons/ic_delete.svg" alt="Delete">
+              </a>
+  
+              <a (click)="edit(element.id)" class="table-action-buttons-column" title="Edit"><img
+                  class="table-action-button" src="assets/images/icons/ic_edit.svg" alt="Edit">
+              </a>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <div class="table-no-data" *ngIf="dataSourceUser.datalist.length == 0">Records empty</div>
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+  
+  </div>
