@@ -83,27 +83,22 @@ export class UserService {
   
 
   private handleError(error: HttpErrorResponse) {
+    console.log(error)
     let errorMessage = 'An unknown error occurred.';
     if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
       errorMessage = error.error.message;
-    } else if (error.status === 401) {
-      // The backend returned a 401 status code, indicating authentication failure.
-      errorMessage = error.error.msg;
-    } else if (error.status === 400) {
-      // The backend returned a 400 status code, indicating authentication failure.
-      errorMessage = error.error.msg;
+    } else if (error.status === 401 || error.status === 400) {
+      errorMessage = error.error.msg || 'Authentication failure.';
     } else if (error.status === 500) {
-      // The backend returned a 400 status code, indicating authentication failure.
-      errorMessage = 'Application Error Please Contact System Administrator';
-    }
-    else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
-      errorMessage = `${error.error.msg}`;
+      errorMessage = 'Application Error. Please Contact System Administrator.';
+    } else if ( error.status === 404 ) {
+      errorMessage = 'User Not Found';
+    }else {
+      errorMessage = error.error.msg || 'Unknown error occurred.';
     }
     console.error(errorMessage);
-    return throwError(errorMessage);
-  };
+    return throwError(errorMessage); // Ensure the error message is returned
+  }
+  
   
 }

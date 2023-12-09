@@ -39,7 +39,7 @@ export class ByteService {
   }
 
   
-  deleteUser(id: any): Observable<any> {
+  delete(id: any): Observable<any> {
     return this.httpClient.delete(this.requestUrl+ `/`+ `${id}`, {
       responseType: 'json'
     });

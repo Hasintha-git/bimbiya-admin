@@ -1,0 +1,35 @@
+.input-fields .thubnail_-images-data {
+    margin-bottom: 20px;
+  }
+  
+  .input-fields .thubnail_-images-data .label {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .input-fields .thubnail_-images-data .thubnail_images {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-fields .thubnail_-images-data .thubnail_image {
+    margin-right: 20px;
+  }
+  
+  .input-fields .thubnail_-images-data .thubnail_image .thumbnail-img {
+    width: 300px;
+    height: 150px;
+    object-fit: cover; /* Maintain aspect ratio */
+    border: 1px solid #ccc; /* Add border for clarity */
+  }
+  
+  .input-fields .thubnail_-images-data input[type="file"] {
+    margin-top: 10px;
+  }
+  
+  .input-fields .thubnail_-images-data .mat-error {
+    color: red;
+    margin-top: 5px;
+    font-size: 12px;
+  }
+  

@@ -39,11 +39,11 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RegexFormateModule } from 'src/app/utility/directive/regex-formate.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { Empty } from 'src/app/utility/pipes/empty';
+import { EmptyPipe } from 'src/app/utility/pipes/empty';
 
 @NgModule({
   declarations: [
-    Empty,
+    EmptyPipe,
     PostLoginComponent,
     DashboardComponent,
     CustomerManagementComponent,

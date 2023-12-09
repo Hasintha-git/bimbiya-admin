@@ -33,34 +33,35 @@ export class SignInComponent implements OnInit {
 
   initialValidator() {
     this.userForm = this.formBuilder.group({
-      email: this.formBuilder.control('', [Validators.required]),
+      username: this.formBuilder.control('', [Validators.required]),
       password: this.formBuilder.control('', [Validators.required])
     });
   }
 
 onSubmit() {    
-  this.spinner.show();
     if (this.userForm.valid) {
-      // this.userService.userLogin(this.signInModel).subscribe((userResponse: any)=> {
-      //     this.sessionStorage.setItem("user",userResponse.data);
+      this.spinner.show();
+      this.userService.userLogin(this.signInModel).subscribe((userResponse: any)=> {
+          this.sessionStorage.setItem("user",userResponse.data);
           this.routerLink.navigateByUrl('/post-login')
           this.spinner.hide();
 
-        // if(userResponse.data != null) {
-        //   this.sessionStorage.setItem("user",userResponse.data);
-        //   this.routerLink.navigateByUrl('/post-login')
+        if(userResponse.data != null) {
+          this.sessionStorage.setItem("user",userResponse.data);
+          this.routerLink.navigateByUrl('/post-login')
 
-        // }
-    //   },
-    //   error => {
-    //     this.spinner.hide();
-    //     this.toastr.errorMessage(error);
-    //   }
-    //   )
-    // } else {
-    //   this.toastr.errorMessage('Please fill in all required fields');
-    //   this.spinner.hide();
-    //   this.mandatoryValidation(this.userForm)
+        }
+      },
+      error => {
+        console.log(error)
+        this.spinner.hide();
+        this.toastr.errorMessage(error);
+      }
+      )
+    } else {
+      this.toastr.errorMessage('Please fill in all required fields');
+      this.spinner.hide();
+      this.mandatoryValidation(this.userForm)
     }
   }
 

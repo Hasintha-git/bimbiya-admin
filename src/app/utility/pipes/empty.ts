@@ -1,7 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({name: 'empty'})
-export class Empty implements PipeTransform {
+export class EmptyPipe  implements PipeTransform {
   transform(value: string): string {
     let result = '';
     if (value === undefined || value === '' || value === null || value === 'null') {

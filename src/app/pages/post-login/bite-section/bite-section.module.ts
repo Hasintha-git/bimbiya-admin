@@ -31,12 +31,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
-import { Empty } from 'src/app/utility/pipes/empty';
 
 
 @NgModule({
   declarations: [
-    Empty,
     BiteSectionComponent,
     ProductManagementComponent,
     AddProductComponent,

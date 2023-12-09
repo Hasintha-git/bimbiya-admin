@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {  FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SimpleBase } from 'src/app/models/SimpleBase';
 import { StorageService } from 'src/app/models/StorageService';
+import { Bite } from 'src/app/models/bite';
 import { CommonResponse } from 'src/app/models/response/CommonResponse';
-import { User } from 'src/app/models/user';
+import { ByteService } from 'src/app/services/byte/byte.service';
 import { NicValidationService } from 'src/app/services/nic-validation/nic-validation.service';
 import { ToastServiceService } from 'src/app/services/toast-service.service';
-import { UserService } from 'src/app/services/user/user.service';
+import { EXCEED_USER_IMAGE_MAX_SIZE, FILE_MAX_SIZE_500KB, INVALID_USER_IMAGE_TYPE } from 'src/app/utility/messages/messageVarList';
 
 @Component({
   selector: 'app-add-product',
@@ -18,14 +19,18 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class AddProductComponent implements OnInit {
 
-  userAdd: FormGroup;
-  userModelAdd = new User();
+  productAdd: FormGroup;
+  biteAdd = new Bite();
   public statusList: SimpleBase[];
-  public userRoleList: SimpleBase[];
+  public portionList: SimpleBase[];
   maxDate = new Date();
 
+  imageFile: File = null;
+  isEmptyThumbnail = true;
+  thumbnailImage:any;
+
   constructor(
-    private userService: UserService,
+    private biteService: ByteService,
     public dialogRef: MatDialogRef<AddProductComponent>,
     private formBuilder: FormBuilder,
     public toastService: ToastServiceService,
@@ -41,83 +46,34 @@ export class AddProductComponent implements OnInit {
   }
 
   _prepare() {
+    this.thumbnailImage = "assets/images/no_image.png";
     this.initialValidator();
     const user=this.sessionStorage.getItem("user");
-    this.userModelAdd.activeUserName = user.user.username;
+    this.biteAdd.activeUserName = user.user.username;
   }
 
   initialValidator() {
-    this.userAdd = this.formBuilder.group({
-      username: this.formBuilder.control('', [
+    this.productAdd = this.formBuilder.group({
+      mealName: this.formBuilder.control('', [
         Validators.required
       ]),
-      fullName: this.formBuilder.control('', [
+      description: this.formBuilder.control('', [
         Validators.required
       ]),
-   nic: this.formBuilder.control('', [
-        Validators.required,
-        Validators.maxLength(12),
-        Validators.pattern(/^([0-9]{9}[X|V|v]|[0-9]{12})$/),
-      ]),
-      password: this.formBuilder.control('', [
+      portion: this.formBuilder.control('', [
         Validators.required
       ]),
-      confirmPassword: this.formBuilder.control('', [
+      price: this.formBuilder.control('', [
         Validators.required
       ]),
-      userRole: this.formBuilder.control('', [
-        Validators.required
-      ]),
-      mobile: this.formBuilder.control('', [
-        Validators.required,
-        Validators.pattern(/^-?([0-9]\d*){10}?$/),
+      ingredientList: this.formBuilder.control('', [
+        // Validators.required
       ]),
       status: this.formBuilder.control('', [
         Validators.required
-      ]),
-      email: this.formBuilder.control('', [
-        Validators.required, Validators.email
-      ]),
-      address: this.formBuilder.control('', []),
-      city: this.formBuilder.control('', []),
-      primaryEmail: ['', Validators.email],
-      dateOfBirth: this.formBuilder.control('', [
-        Validators.required
       ])
-    }, { validator: this.passwordMatchValidator });
+    });
 
-    this.userAdd.get('email').setValidators(Validators.email);
-  }
-
-  passwordMatchValidator(control: AbstractControl) {
-    const password: string = control.get('password').value; // get password from our password form control
-    const confirmPassword: string = control.get('confirmPassword').value; // get password from our confirmPassword form control
-    // compare is the password math
-    if (password !== confirmPassword) {
-      // if they don't match, set an error in our confirmPassword form control
-      control.get('confirmPassword').setErrors({ NoPassswordMatch: true });
-    }
-  }
-
-
-  customNicValidator(isValid: boolean): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (isValid) {
-        return null; // Return null if the NIC is valid
-      } else {
-        return { invalidNic: true }; // Return an error object if the NIC is invalid
-      }
-    };
-  }
-
-  onNicInputChange(event: any) {
-    if (this.userAdd.get('nic').valid) {
-      const inputValue = event.target.value;
-      const dob = this.nicValidationConfig.extractBirthday(inputValue);
-      this.userModelAdd.dateOfBirth = dob;
-    } else {
-      this.userModelAdd.dateOfBirth = null;
-    }
   }
 
   mandatoryValidation(formGroup: FormGroup) {
@@ -133,14 +89,21 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  resetUserAdd() {
-    this.userAdd.reset();
+  reset() {
+    this.productAdd.reset();
   }
 
   onSubmit() {
     this.spinner.show();
-    if (this.userAdd.valid) {
-      this.userService.add(this.userModelAdd).subscribe(
+
+    if (this.biteAdd.img == null) {
+      this.isEmptyThumbnail = false;
+    } else  {
+      this.isEmptyThumbnail = true;
+    }
+    console.log(this.isEmptyThumbnail)
+    if (this.productAdd.valid && this.isEmptyThumbnail) {
+      this.biteService.add(this.biteAdd).subscribe(
         (response: CommonResponse) => {
           this.toastService.successMessage(response.responseDescription);
           this.dialogRef.close();
@@ -153,7 +116,7 @@ export class AddProductComponent implements OnInit {
       );
     } else {
       this.spinner.hide();
-      this.mandatoryValidation(this.userAdd)
+      this.mandatoryValidation(this.productAdd)
     }
   }
 
@@ -169,56 +132,70 @@ export class AddProductComponent implements OnInit {
     });
   }
 
-  get username() {
-    return this.userAdd.get('username');
+  selectFile(file: FileList): void {
+    const image: any = file.item(0);
+  
+    // Check if the file is an image (JPEG, JPG, or PNG).
+    if (image && (image.type === 'image/jpeg' || image.type === 'image/jpg' || image.type === 'image/png')) {
+      // Check the file size.
+      if (image.size < FILE_MAX_SIZE_500KB) {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          const imageElement = new Image();
+          imageElement.src = event.target.result;
+  
+          imageElement.onload = () => {
+            const width = imageElement.width;
+            const height = imageElement.height;
+  
+            // Check aspect ratio.
+            const aspectRatio = width / height;
+            
+            // Define acceptable aspect ratio range.
+            const minAspectRatio = 1.76;
+            const maxAspectRatio = 1.78;            
+  
+            if (aspectRatio >= minAspectRatio && aspectRatio <= maxAspectRatio) {
+              // If both size and aspect ratio are valid, proceed.
+              this.thumbnailImage = event.target.result;
+              (<HTMLInputElement>document.getElementById('srcHelpLink')).style.display = 'flex';
+              this.biteAdd.img = this.thumbnailImage;
+              this.isEmptyThumbnail = true;
+            } else {
+              this.toastService.errorMessage('Image dimensions must be in the range of 1920x1080 - 1280x720 pixels.');
+            }
+          };
+        };
+        reader.readAsDataURL(image);
+      } else {
+        this.toastService.errorMessage(EXCEED_USER_IMAGE_MAX_SIZE);
+      }
+    } else {
+      this.toastService.errorMessage(INVALID_USER_IMAGE_TYPE);
+    }
+  }
+  
+
+  get mealName() {
+    return this.productAdd.get('mealName');
   }
 
-  get nic() {
-    return this.userAdd.get('nic');
+  get description() {
+    return this.productAdd.get('description');
   }
 
-  get mobile() {
-    return this.userAdd.get('mobile');
+  get price() {
+    return this.productAdd.get('price');
   }
 
+  get portion() {
+    return this.productAdd.get('portion');
+  }
+  get ingredientList() {
+    return this.productAdd.get('ingredientList');
+  }
   get status() {
-    return this.userAdd.get('status');
-  }
-
-  get fullname() {
-    return this.userAdd.get('fullName');
-  }
-
-  get password() {
-    return this.userAdd.get('password');
-  }
-
-  get confirmpassword() {
-    return this.userAdd.get('confirmPassword');
-  }
-
-  get userRole() {
-    return this.userAdd.get('userRole');
-  }
-
-  get email() {
-    return this.userAdd.get('email');
-  }
-
-  get address() {
-    return this.userAdd.get('address');
-  }
-
-  get city() {
-    return this.userAdd.get('city');
-  }
-
-  get branchCode() {
-    return this.userAdd.get('branchCode');
-  }
-
-  get dateofbirth() {
-    return this.userAdd.get('dateOfBirth');
+    return this.productAdd.get('status');
   }
 
 

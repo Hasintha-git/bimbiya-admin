@@ -21,13 +21,13 @@
         <span class="new-line "></span>
         <div class="login-side1-row">
             <div style="display: flex;flex-direction: column;">
-                <label style="font-weight: 500;">Email</label>
+                <label style="font-weight: 500;">User Name</label>
             <mat-form-field class="ultra-max-field" appearance="outline">
-                <input  matInput placeholder="email"  formControlName="email"  [(ngModel)]="signInModel.email">
+                <input  matInput placeholder="username"  formControlName="username"  [(ngModel)]="signInModel.username">
                 <button mat-icon-button matSuffix type="button">
-                    <mat-icon style="color: gray;">email</mat-icon>
+                    <mat-icon style="color: gray;">people</mat-icon>
                 </button>
-                <mat-error *ngIf="email?.hasError('required')">Email cannot be empty
+                <mat-error *ngIf="email?.hasError('required')">User Name cannot be empty
                 </mat-error>
             </mat-form-field>
             </div>

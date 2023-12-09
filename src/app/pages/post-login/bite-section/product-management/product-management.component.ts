@@ -19,6 +19,7 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { DeleteProductComponent } from './delete-product/delete-product.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { ByteService } from 'src/app/services/byte/byte.service';
+import { Bite } from 'src/app/models/bite';
 
 @Component({
   selector: 'app-product-management',
@@ -26,21 +27,20 @@ import { ByteService } from 'src/app/services/byte/byte.service';
   styleUrls: ['./product-management.component.scss']
 })
 export class ProductManagementComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  @ViewChild(MatSort, { static: true }) sort!: MatSort;
-
-  public userSearch: FormGroup;
-  public dataSourceUser: Commondatasource;
-  public userList: User[];
-  public searchModel: User;
+  public biteSearch: FormGroup;
+  public dataSource: Commondatasource;
+  public biteList: Bite[];
+  public searchModel: Bite;
   public statusList: SimpleBase[];
-  public userRoleList: SimpleBase[];
+  public portionList: SimpleBase[];
   public searchReferenceData: Map<string, Object[]>;
   public isSearch: boolean;
   public access: any;
 
-  displayedColumns: string[] = ['view', 'mealName', 'description', 'price', 'portion', 'status','action'];
+  displayedColumns: string[] = ['view', 'mealName', 'description', 'price', 'status','action'];
 
   constructor(
     public dialog: MatDialog,
@@ -55,17 +55,18 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
 
   ngOnInit() {
     this.spinner.show();
-    this.searchModel = new User();
+    this.searchModel = new Bite();
     this.prepareReferenceData();
     this.initialForm();
     this.initialDataLoader();
   }
 
   initialForm() {
-    this.userSearch = this.formBuilder.group({
+    this.biteSearch = this.formBuilder.group({
       mealName: new FormControl(''),
       price: new FormControl(''),
-      status: new FormControl('')
+      status: new FormControl(''),
+      portion: new FormControl('')
     });
   }
 
@@ -73,7 +74,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
     this.byteService.getSearchData(true)
       .subscribe((response: any) => {
         this.statusList = response.statusList;
-        this.userRoleList = response.userRoleList;
+        this.portionList = response.portionList;
       },
       error => {
         this.toast.errorMessage(error.error['message']);
@@ -82,7 +83,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
   }
 
   ngAfterViewInit() {
-    this.dataSourceUser.counter$
+    this.dataSource.counter$
       .pipe(
         tap((count) => {
           this.paginator.length = count;
@@ -98,8 +99,8 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
 
   initialDataLoader(): void {
     this.initialDataTable();
-    this.dataSourceUser = new Commondatasource();
-    this.dataSourceUser.counter$
+    this.dataSource = new Commondatasource();
+    this.dataSource.counter$
       .pipe(
         tap((count) => {
           this.paginator.length = count;
@@ -115,13 +116,13 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
       searchParamMap = this.getSearchString(searchParamMap, this.searchModel);
     }
     this.byteService.getList(searchParamMap)
-      .subscribe((data: DataTable<User>) => {
-        this.userList = data.records;
-        console.log("---->",this.userList)
-        this.dataSourceUser.datalist = this.userList;
-        console.log(this.dataSourceUser)
-        this.dataSourceUser.usersSubject.next(this.userList);
-        this.dataSourceUser.countSubject.next(data.totalRecords);
+      .subscribe((data: DataTable<Bite>) => {
+        this.biteList = data.records;
+        console.log("---->",this.biteList)
+        this.dataSource.datalist = this.biteList;
+        console.log(this.dataSource)
+        this.dataSource.usersSubject.next(this.biteList);
+        this.dataSource.countSubject.next(data.totalRecords);
         this.spinner.hide();
       },
       error => {
@@ -131,24 +132,18 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
     );
   }
 
-  getSearchString(searchParamMap: Map<string, any>, searchModel: User): Map<string, string> {
-    if (searchModel.username) {
-      searchParamMap.set(this.displayedColumns[1].toString(), searchModel.username);
+  getSearchString(searchParamMap: Map<string, any>, searchModel: Bite): Map<string, string> {
+    if (searchModel.mealName) {
+      searchParamMap.set("mealName", searchModel.mealName);
     }
-    if (searchModel.nic) {
-      searchParamMap.set(this.displayedColumns[4].toString(), searchModel.nic);
-    }
-    if (searchModel.userRole) {
-      searchParamMap.set(this.displayedColumns[3].toString(), searchModel.userRole);
+    if (searchModel.price) {
+      searchParamMap.set("price", searchModel.price);
     }
     if (searchModel.status) {
-      searchParamMap.set(this.displayedColumns[7].toString(), searchModel.status);
+      searchParamMap.set("status", searchModel.status);
     }
-    if (searchModel.email) {
-      searchParamMap.set(this.displayedColumns[5].toString(), searchModel.email);
-    }
-    if (searchModel.mobileNo) {
-      searchParamMap.set(this.displayedColumns[6].toString(), searchModel.mobileNo);
+    if (searchModel.portion) {
+      searchParamMap.set("portion", searchModel.portion);
     }
     return searchParamMap;
   }
@@ -158,31 +153,31 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
     this.paginator.pageSize = PAGE_LENGTH;
   }
 
-  searchUser(search: boolean) {
+  search(search: boolean) {
     this.isSearch = search;
     this.initialDataLoader();
   }
 
-  resetUserSearch() {
-    this.userSearch.reset();
+  reset() {
+    this.biteSearch.reset();
     this.initialDataLoader();
   }
 
   add() {
     const dialogRef = this.dialog.open(AddProductComponent);
     dialogRef.componentInstance.statusList = this.statusList;
-    dialogRef.componentInstance.userRoleList = this.userRoleList;
+    dialogRef.componentInstance.portionList = this.portionList;
     dialogRef.afterClosed().subscribe(result => {
-      this.resetUserSearch();
+      this.reset();
     });
   }
 
   edit(id: any) {
     const dialogRef = this.dialog.open(EditProductComponent, { data: id });
     dialogRef.componentInstance.statusList = this.statusList;
-    dialogRef.componentInstance.userRoleList = this.userRoleList;
+    dialogRef.componentInstance.userRoleList = this.portionList;
     dialogRef.afterClosed().subscribe(result => {
-      this.resetUserSearch();
+      this.reset();
     });
   }
 
@@ -190,7 +185,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
     const dialogRef = this.dialog.open(DeleteProductComponent, { data: id, width: '350px', height: '180px' });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.resetUserSearch();
+      this.reset();
     });
   }
 
@@ -205,32 +200,20 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
   }
 
   // Getters for form controls
-  get username() {
-    return this.userSearch.get('username');
+  get mealName() {
+    return this.biteSearch.get('mealName');
   }
 
-  get fullName() {
-    return this.userSearch.get('fullName');
+  get price() {
+    return this.biteSearch.get('price');
   }
 
   get status() {
-    return this.userSearch.get('status');
+    return this.biteSearch.get('status');
   }
 
-  get userRole() {
-    return this.userSearch.get('userRole');
-  }
-
-  get nic() {
-    return this.userSearch.get('nic');
-  }
-
-  get email() {
-    return this.userSearch.get('email');
-  }
-
-  get mobileNo() {
-    return this.userSearch.get('mobileNo');
+  get portion() {
+    return this.biteSearch.get('portion');
   }
 }
 
