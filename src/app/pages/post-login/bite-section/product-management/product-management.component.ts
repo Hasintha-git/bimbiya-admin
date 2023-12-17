@@ -36,6 +36,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
   public searchModel: Bite;
   public statusList: SimpleBase[];
   public portionList: SimpleBase[];
+  public ingredientsList: SimpleBase[];
   public searchReferenceData: Map<string, Object[]>;
   public isSearch: boolean;
   public access: any;
@@ -75,6 +76,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
       .subscribe((response: any) => {
         this.statusList = response.statusList;
         this.portionList = response.portionList;
+        this.ingredientsList = response.ingredientsList;
       },
       error => {
         this.toast.errorMessage(error.error['message']);
@@ -167,6 +169,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
     const dialogRef = this.dialog.open(AddProductComponent);
     dialogRef.componentInstance.statusList = this.statusList;
     dialogRef.componentInstance.portionList = this.portionList;
+    dialogRef.componentInstance.ingredientsList = this.ingredientsList;
     dialogRef.afterClosed().subscribe(result => {
       this.reset();
     });
@@ -175,7 +178,8 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
   edit(id: any) {
     const dialogRef = this.dialog.open(EditProductComponent, { data: id });
     dialogRef.componentInstance.statusList = this.statusList;
-    dialogRef.componentInstance.userRoleList = this.portionList;
+    dialogRef.componentInstance.portionList = this.portionList;
+    dialogRef.componentInstance.ingredientsList = this.ingredientsList;
     dialogRef.afterClosed().subscribe(result => {
       this.reset();
     });

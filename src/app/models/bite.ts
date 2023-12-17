@@ -17,5 +17,5 @@ export class Bite {
   userRole: string;
   userRoleDescription:string;
 
-  activeUserName:string;
+  activeUser:string;
 }

@@ -1,96 +1,37 @@
 <div class="input-dialog-container">
-    <form (ngSubmit)="onSubmit()" [formGroup]="userAdd">
-        <div class="dialog-title">Edit User</div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="productAdd">
+        <div class="dialog-title">Update Package</div>
         <div class="btn-close" (click)="closeDialog()">
         </div>
         <div class="title-content-devider"></div>
+        <div class="dialog-content modal-content">
         <div class="dialog-input-fields">
             <div class="input-fields">
                 <mat-form-field class="min-field" appearance="outline">
-                    <mat-label>User Name</mat-label>
-                    <input matInput [formControl]="username" [maxlength]="8" autoComplete='off'
-                        [(ngModel)]="userModelAdd.username" appRegexFormate regexType="letter_num" required>
-                    <mat-error *ngIf="username.hasError('required')">User name cannot be
-                        empty
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="input-fields">
-                <mat-form-field class="min-field" appearance="outline">
-                    <mat-label>Full Name</mat-label>
-                    <input matInput name="fullName" [formControl]="fullname" [maxlength]="255" appRegexFormate
-                        regexType="letter_num_space" autoComplete='off' [(ngModel)]="userModelAdd.fullName" required>
-                    <mat-error *ngIf="fullname.hasError('required')">Full name cannot be empty
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="input-fields">
-                <mat-form-field class="min-field" appearance="outline">
-                    <mat-label>User Role</mat-label>
-                    <mat-select [formControl]="userRole" required [(ngModel)]="userModelAdd.userRole">
-                        <mat-option [value]="">Select User Role</mat-option>
-                        <mat-option *ngFor="let st of userRoleList" [value]="st.code">
-                            {{st.description}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="userRole.hasError('required')">User role cannot be
+                    <mat-label>Meal Name</mat-label>
+                    <input matInput [formControl]="mealName" [maxlength]="8" autoComplete='off'
+                        [(ngModel)]="biteAdd.mealName" appRegexFormate regexType="letter_num" required>
+                    <mat-error *ngIf="mealName.hasError('required')">Meal name cannot be
                         empty
                     </mat-error>
                 </mat-form-field>
             </div>
 
-
+            
             <div class="input-fields">
                 <mat-form-field class="min-field" appearance="outline">
-                    <mat-label>NIC</mat-label>
-                    <input matInput [formControl]="nic" [maxlength]="12" [(ngModel)]="userModelAdd.nic" required
-                        autoComplete='off'
-                        onkeyup="$(this).val($(this).val().replace(/[^0-9xXvV]/g,''));this.value = this.value.toUpperCase();"
-                        onmouseout="$(this).val($(this).val().replace(/[^0-9xXvV]/g,''));this.value = this.value.toUpperCase();"
-                        (change)="onNicInputChange($event)">
-                    <mat-error *ngIf="nic.hasError('required')">NIC cannot be empty</mat-error>
-                    <mat-error *ngIf="nic.hasError('pattern')">Invalid NIC
-                    </mat-error>
+                  <mat-label>Amount (RS)</mat-label>
+                  <input matInput type="text" [formControl]="price" appRegex regexType="number"
+                         [(ngModel)]="biteAdd.price" required maxlength="64"/>
+                  <mat-error *ngIf="price.hasError('required')">Amount cannot be empty
+                  </mat-error>
                 </mat-form-field>
-            </div>
-
-
-            <div class="input-fields">
-                <mat-form-field class="min-field" appearance="outline">
-                    <mat-label>Date of Birth</mat-label>
-                    <input matInput name="dateOfBirth" [formControl]="dateofbirth" disabled=true
-                        [(ngModel)]="userModelAdd.dateOfBirth" autoComplete='off' [max]="maxDate"
-                        [matDatepicker]="picker1" (click)="picker1.open()" required readonly>
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                    <mat-error *ngIf="dateofbirth.hasError('required')">Date of birth cannot be
-                        empty
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-
-            <div class="input-fields">
-                <mat-form-field class="min-field" appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput name="email" [formControl]="email" required [maxlength]="255" autoComplete='off'
-                        [(ngModel)]="userModelAdd.email">
-                    <mat-error *ngIf="email.hasError('required')">Email cannot be empty
-                    </mat-error>
-                    <mat-error *ngIf="email.hasError('email')">Invalid Email
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-
-
-
+              </div>
 
             <div class="input-fields">
                 <mat-form-field class="min-field" appearance="outline">
                     <mat-label>Status</mat-label>
-                    <mat-select [formControl]="status" required [(ngModel)]="userModelAdd.status">
+                    <mat-select [formControl]="status" required [(ngModel)]="biteAdd.status">
                         <mat-option [value]="">Select Status</mat-option>
                         <mat-option *ngFor="let st of statusList" [value]="st.code">
                             {{st.description}}
@@ -101,43 +42,65 @@
                 </mat-form-field>
             </div>
 
-
             <div class="input-fields">
                 <mat-form-field class="min-field" appearance="outline">
-                    <mat-label>Mobile No</mat-label>
-                    <input matInput [formControl]="mobile" [maxlength]="10" [(ngModel)]="userModelAdd.mobileNo"
-                        autoComplete='off' required appRegexFormate regexType="number">
-                    <mat-error *ngIf="mobile.hasError('required')">Mobile No cannot be
-                        empty
+                    <mat-label>Portion</mat-label>
+                    <mat-select [formControl]="portion" required [(ngModel)]="biteAdd.portion">
+                        <mat-option [value]="">Select Portion</mat-option>
+                        <mat-option *ngFor="let st of portionList" [value]="st.code">
+                            {{st.description}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="portion.hasError('required')">Portion cannot be empty
                     </mat-error>
-                    <mat-error *ngIf="mobile.hasError('pattern')">Invalid Mobile No
+                </mat-form-field>
+            </div>
+
+            <div class="input-fields">
+                <mat-form-field class="min-field" appearance="outline">
+                    <mat-label>Ingredients</mat-label>
+                    <mat-select [formControl]="ingredientList" required multiple [(ngModel)]="biteAdd.ingredientList">
+                        <mat-option *ngFor="let st of ingredientsList" [value]="st.id">
+                            {{st.description}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="portion.hasError('required')">Portion cannot be empty
                     </mat-error>
                 </mat-form-field>
             </div>
 
-            <div class="input-fields">
-                <mat-form-field class="min-field" appearance="outline">
-                    <mat-label>Address</mat-label>
-                    <input matInput name="address" [formControl]="address" [maxlength]="255" autoComplete='off'
-                        [(ngModel)]="userModelAdd.address">
-                </mat-form-field>
-            </div>
+            <mat-form-field class="example-full-width txt-remark" appearance="outline">
+                <mat-label>description</mat-label>
+                <textarea matInput placeholder="Ex. please add remark" [rows]="3" [(ngModel)]="biteAdd.description" [formControl]="description"
+                  required ngModel [maxlength]="512"></textarea>
+                <mat-error *ngIf="description.hasError('required')">description cannot be empty</mat-error>
+              </mat-form-field>
 
-            <div class="input-fields">
-                <mat-form-field class="min-field" appearance="outline">
-                    <mat-label>City</mat-label>
-                    <input matInput name="city" [formControl]="city" [maxlength]="64" autoComplete='off'
-                        [(ngModel)]="userModelAdd.city" appRegexFormate regexType="letter_only">
-                </mat-form-field>
-            </div>
 
-            
+              <div class="input-fields">
+                <div class="thubnail_-images-data">
+                  <label class="label">Image (Maximum size (W*H) : 1920 * 1080 pixels)</label>
+                  <div class="thubnail_images">
+                    <div class="thubnail_image">
+                      <img [src]="thumbnailImage" alt="Thumbnail Image" id="srcHelpLink" class="thumbnail-img">
+                      <label class="img-label"></label>
+                    </div>
+                    <input type="file" #thumbnailInput id="thumbnail" name="thumbnail"
+                           (change)="selectFile($event.target.files)"
+                           accept="image/png,image/jpg,image/jpeg">
+                  </div>
+                  <mat-error *ngIf="isEmptyThumbnail == false">Image cannot be empty</mat-error>
+                </div>
+              </div>
+              
 
         </div>
         <div class="dialog-buttons">
             <button type="submit" mat-button class="custom-button primary">Add
             </button>
-            <button type="reset" mat-button class="custom-button secondary" (click)="resetUserAdd()">Reset</button>
+            <button type="reset" mat-button class="custom-button secondary" (click)="reset()">Reset</button>
         </div>
+        
+    </div>
     </form>
 </div>

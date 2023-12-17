@@ -23,6 +23,7 @@ export class AddProductComponent implements OnInit {
   biteAdd = new Bite();
   public statusList: SimpleBase[];
   public portionList: SimpleBase[];
+  public ingredientsList: SimpleBase[];
   maxDate = new Date();
 
   imageFile: File = null;
@@ -49,7 +50,7 @@ export class AddProductComponent implements OnInit {
     this.thumbnailImage = "assets/images/no_image.png";
     this.initialValidator();
     const user=this.sessionStorage.getItem("user");
-    this.biteAdd.activeUserName = user.user.username;
+    this.biteAdd.activeUser = user.user.username;
   }
 
   initialValidator() {
