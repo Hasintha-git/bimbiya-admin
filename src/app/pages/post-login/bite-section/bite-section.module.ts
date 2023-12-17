@@ -31,6 +31,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
+import { IngredientManagementComponent } from './ingredient-management/ingredient-management.component';
+import { ViewIngredientComponent } from './ingredient-management/view-ingredient/view-ingredient.component';
+import { UpdateIngredientComponent } from './ingredient-management/update-ingredient/update-ingredient.component';
+import { AddIngredientComponent } from './ingredient-management/add-ingredient/add-ingredient.component';
+import { DeleteIngredientComponent } from './ingredient-management/delete-ingredient/delete-ingredient.component';
 
 
 @NgModule({
@@ -40,7 +45,12 @@ import { MatChipsModule } from '@angular/material/chips';
     AddProductComponent,
     EditProductComponent,
     DeleteProductComponent,
-    ViewProductComponent
+    ViewProductComponent,
+    IngredientManagementComponent,
+    ViewIngredientComponent,
+    UpdateIngredientComponent,
+    AddIngredientComponent,
+    DeleteIngredientComponent
   ],
   imports: [
     CommonModule,

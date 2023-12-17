@@ -1,0 +1,43 @@
+<div class="input-dialog-container">
+    <div class="dialog-title">View Ingredient</div>
+  
+    <div class="btn-close" (click)="closeDialog()">
+    </div>
+    <div class="title-content-devider"></div>
+  
+    <div class="dialog-input-fields">
+  
+      <div class="view-data">
+        <label for="ingredientsId" class="label">Ingredients Id</label>
+        <p title="{{ingredientModel.ingredientsId }}" class="data">{{ingredientModel.ingredientsId }}</p>
+      </div>
+      <div class="view-data">
+        <label for="ingredientsName" class="label">ingredientsName</label>
+        <p title="{{ingredientModel.ingredientsName }}" class="data">{{ingredientModel.ingredientsName }}</p>
+      </div>
+      <div class="view-data">
+        <label for="Status" class="label">Status</label>
+        <p title="{{ingredientModel.status }}" class="data">{{ingredientModel.status }}</p>
+      </div>
+  
+      <div class="view-data">
+        <label for="createdUser" class="label">Created User</label>
+        <p title="{{ingredientModel.createdUser }}" class="data">{{ingredientModel.createdUser}}</p>
+      </div>
+  
+      <div class="view-data">
+        <label for="lastUpdatedUser" class="label">Last Updated User</label>
+        <p title="{{ingredientModel.lastUpdatedUser}}" class="data">{{ingredientModel.lastUpdatedUser}}</p>
+      </div>
+  
+      <div class="view-data">
+        <label for="createdTime" class="label">Created Date & Time</label>
+        <p title="{{ingredientModel.createdTime }}" class="data">{{ingredientModel.createdTime| date:"yyyy/MM/dd 'at' h:mm a" }}</p>
+      </div>
+  
+      <div class="view-data">
+        <label for="lastUpdatedTime" class="label">Last Updated Date & Time</label>
+        <p title="{{ingredientModel.lastUpdatedTime }}" class="data">{{ingredientModel.lastUpdatedTime| date:"yyyy/MM/dd 'at' h:mm a"  }}</p>
+      </div>
+    </div>
+  </div>

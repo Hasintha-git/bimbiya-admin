@@ -4,23 +4,24 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SimpleBase } from 'src/app/models/SimpleBase';
 import { Bite } from 'src/app/models/bite';
+import { Ingredient } from 'src/app/models/ingredient';
 import { ByteService } from 'src/app/services/byte/byte.service';
+import { IngredientService } from 'src/app/services/ingredient/ingredient.service';
 import { ToastServiceService } from 'src/app/services/toast-service.service';
 
 @Component({
-  selector: 'app-view-product',
-  templateUrl: './view-product.component.html',
-  styleUrls: ['./view-product.component.scss']
+  selector: 'app-view-ingredient',
+  templateUrl: './view-ingredient.component.html',
+  styleUrls: ['./view-ingredient.component.scss']
 })
-export class ViewProductComponent implements OnInit {
+export class ViewIngredientComponent implements OnInit {
 
   public id: any;
-  public biteModel = new Bite();
-  public branchList: SimpleBase[];
+  public ingredientModel = new Ingredient();
 
-  constructor(private dialogRef: MatDialogRef<ViewProductComponent>,
+  constructor(private dialogRef: MatDialogRef<ViewIngredientComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private biteService: ByteService,
+    private ingredientService: IngredientService,
     public toastService: ToastServiceService,
     private router: Router,
     private spinner: NgxSpinnerService) {
@@ -32,16 +33,19 @@ export class ViewProductComponent implements OnInit {
 
 
   _prepare() {
-    this.biteModel.packageId = this.data;
+    this.spinner.show();
+    this.ingredientModel.ingredientsId = this.data;
     this.findById();
   }
 
   findById() {
-    console.log(this.biteModel)
-    this.biteService.get(this.biteModel).subscribe(
+    console.log(this.ingredientModel)
+    this.ingredientService.get(this.ingredientModel).subscribe(
       (user: any) => {
-        this.biteModel = user.data;
+        this.ingredientModel = user.data;
+        this.spinner.hide();
       }, error => {
+        this.spinner.hide();
           this.toastService.errorMessage(error.error['errorDescription']);
         
       }

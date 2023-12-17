@@ -1,39 +1,37 @@
-import { AfterViewInit, Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { SimpleBase } from 'src/app/models/SimpleBase';
-import { User } from 'src/app/models/user';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastServiceService } from 'src/app/services/toast-service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonFunctionService } from 'src/app/services/common-functions/common-function.service';
-import { LAST_UPDATED_TIME, PAGE_LENGTH, SORT_DIRECTION } from 'src/app/utility/constants/system-config';
+import { PAGE_LENGTH } from 'src/app/utility/constants/system-config';
 import { merge, tap } from 'rxjs';
 import { Commondatasource } from 'src/app/pages/datasource/Commondatasource';
 import { DataTable } from 'src/app/pages/models/data-table';
-import { AddProductComponent } from './add-product/add-product.component';
-import { EditProductComponent } from './edit-product/edit-product.component';
-import { DeleteProductComponent } from './delete-product/delete-product.component';
-import { ViewProductComponent } from './view-product/view-product.component';
-import { ByteService } from 'src/app/services/byte/byte.service';
-import { Bite } from 'src/app/models/bite';
+import { ViewIngredientComponent } from './view-ingredient/view-ingredient.component';
+import { DeleteIngredientComponent } from './delete-ingredient/delete-ingredient.component';
+import { UpdateIngredientComponent } from './update-ingredient/update-ingredient.component';
+import { AddIngredientComponent } from './add-ingredient/add-ingredient.component';
+import { Ingredient } from 'src/app/models/ingredient';
+import { IngredientService } from 'src/app/services/ingredient/ingredient.service';
 
 @Component({
-  selector: 'app-product-management',
-  templateUrl: './product-management.component.html',
-  styleUrls: ['./product-management.component.scss']
+  selector: 'app-ingredient-management',
+  templateUrl: './ingredient-management.component.html',
+  styleUrls: ['./ingredient-management.component.scss']
 })
-export class ProductManagementComponent implements OnInit, AfterViewInit, OnDestroy {
+export class IngredientManagementComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   public biteSearch: FormGroup;
   public dataSource: Commondatasource;
-  public biteList: Bite[];
-  public searchModel: Bite;
+  public biteList: Ingredient[];
+  public searchModel: Ingredient;
   public statusList: SimpleBase[];
   public portionList: SimpleBase[];
   public ingredientsList: SimpleBase[];
@@ -41,14 +39,14 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
   public isSearch: boolean;
   public access: any;
 
-  displayedColumns: string[] = ['view', 'mealName', 'description', 'price', 'status','lastUpdatedUser','lastUpdatedTime','action'];
+  displayedColumns: string[] = ['view', 'ingredientsName', 'status','lastUpdatedUser','lastUpdatedTime','action'];
 
   constructor(
     public dialog: MatDialog,
     public toast: ToastServiceService,
     public router: Router,
     private spinner: NgxSpinnerService,
-    private byteService: ByteService,
+    private ingredientService: IngredientService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private commonFunctionService: CommonFunctionService
@@ -56,7 +54,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
 
   ngOnInit() {
     this.spinner.show();
-    this.searchModel = new Bite();
+    this.searchModel = new Ingredient();
     this.prepareReferenceData();
     this.initialForm();
     this.initialDataLoader();
@@ -64,19 +62,15 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
 
   initialForm() {
     this.biteSearch = this.formBuilder.group({
-      mealName: new FormControl(''),
-      price: new FormControl(''),
+      ingredientsName: new FormControl(''),
       status: new FormControl(''),
-      portion: new FormControl('')
     });
   }
 
   prepareReferenceData(): void {
-    this.byteService.getSearchData(true)
+    this.ingredientService.getSearchData(true)
       .subscribe((response: any) => {
-        this.statusList = response.statusList;
-        this.portionList = response.portionList;
-        this.ingredientsList = response.ingredientsList;
+          this.statusList = response.statusList;
       },
       error => {
         this.toast.errorMessage(error.error['message']);
@@ -117,8 +111,8 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
     if (this.isSearch) {
       searchParamMap = this.getSearchString(searchParamMap, this.searchModel);
     }
-    this.byteService.getList(searchParamMap)
-      .subscribe((data: DataTable<Bite>) => {
+    this.ingredientService.getList(searchParamMap)
+      .subscribe((data: DataTable<Ingredient>) => {
         this.biteList = data.records;
         console.log("---->",this.biteList)
         this.dataSource.datalist = this.biteList;
@@ -134,18 +128,12 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
     );
   }
 
-  getSearchString(searchParamMap: Map<string, any>, searchModel: Bite): Map<string, string> {
-    if (searchModel.mealName) {
-      searchParamMap.set("mealName", searchModel.mealName);
-    }
-    if (searchModel.price) {
-      searchParamMap.set("price", searchModel.price);
+  getSearchString(searchParamMap: Map<string, any>, searchModel: Ingredient): Map<string, string> {
+    if (searchModel.ingredientsName) {
+      searchParamMap.set("ingredientsName", searchModel.ingredientsName);
     }
     if (searchModel.status) {
       searchParamMap.set("status", searchModel.status);
-    }
-    if (searchModel.portion) {
-      searchParamMap.set("portion", searchModel.portion);
     }
     return searchParamMap;
   }
@@ -166,27 +154,23 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
   }
 
   add() {
-    const dialogRef = this.dialog.open(AddProductComponent);
+    const dialogRef = this.dialog.open(AddIngredientComponent);
     dialogRef.componentInstance.statusList = this.statusList;
-    dialogRef.componentInstance.portionList = this.portionList;
-    dialogRef.componentInstance.ingredientsList = this.ingredientsList;
     dialogRef.afterClosed().subscribe(result => {
       this.reset();
     });
   }
 
   edit(id: any) {
-    const dialogRef = this.dialog.open(EditProductComponent, { data: id });
+    const dialogRef = this.dialog.open(UpdateIngredientComponent, { data: id });
     dialogRef.componentInstance.statusList = this.statusList;
-    dialogRef.componentInstance.portionList = this.portionList;
-    dialogRef.componentInstance.ingredientsList = this.ingredientsList;
     dialogRef.afterClosed().subscribe(result => {
       this.reset();
     });
   }
 
   delete(id: any) {
-    const dialogRef = this.dialog.open(DeleteProductComponent, { data: id, width: '350px', height: '180px' });
+    const dialogRef = this.dialog.open(DeleteIngredientComponent, { data: id, width: '350px', height: '180px' });
 
     dialogRef.afterClosed().subscribe(result => {
       this.reset();
@@ -194,7 +178,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
   }
 
   view(id: any) {
-    const dialogRef = this.dialog.open(ViewProductComponent, { data: id });
+    const dialogRef = this.dialog.open(ViewIngredientComponent, { data: id });
     dialogRef.afterClosed().subscribe(result => {
     });
   }
@@ -204,20 +188,12 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
   }
 
   // Getters for form controls
-  get mealName() {
-    return this.biteSearch.get('mealName');
-  }
-
-  get price() {
-    return this.biteSearch.get('price');
+  get ingredientsName() {
+    return this.biteSearch.get('ingredientsName');
   }
 
   get status() {
     return this.biteSearch.get('status');
-  }
-
-  get portion() {
-    return this.biteSearch.get('portion');
   }
 }
 

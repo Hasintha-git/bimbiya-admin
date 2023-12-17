@@ -49,10 +49,9 @@ export class EditProductComponent implements OnInit {
   _prepare() {
     this.thumbnailImage = "assets/images/no_image.png";
     this.initialValidator();
-    const user=this.sessionStorage.getItem("user");
-    this.biteAdd.activeUser = user.user.username;
     this.biteAdd.packageId = this.data;
     this.findById();
+  
   }
 
   initialValidator() {
@@ -86,6 +85,9 @@ export class EditProductComponent implements OnInit {
       (bite: any) => {
         this.biteAdd = bite.data;
         this.thumbnailImage = this.biteAdd.img;
+                    
+    const activeUser=this.sessionStorage.getItem("user");
+    this.biteAdd.activeUser = activeUser.user.username;
       }, error => {
           this.toastService.errorMessage(error.error['errorDescription']);
         
