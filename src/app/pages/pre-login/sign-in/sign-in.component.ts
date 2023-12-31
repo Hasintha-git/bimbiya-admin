@@ -53,7 +53,7 @@ onSubmit() {
         }
       },
       error => {
-        console.log(error)
+        console.log(">>>>>>>>>",error)
         this.spinner.hide();
         this.toastr.errorMessage(error);
       }
