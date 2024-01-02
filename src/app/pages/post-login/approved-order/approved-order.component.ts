@@ -125,7 +125,7 @@ export class ApprovedOrderComponent implements OnInit, AfterViewInit, OnDestroy 
     if (searchModel.userId) {
       searchParamMap.set("userId", searchModel.userId);
     }
-    searchParamMap.set("status", "pending");
+    searchParamMap.set("status", "approved");
 
     if (searchModel.orderDate) {
       searchParamMap.set("orderDate", searchModel.orderDate.toLocaleDateString());

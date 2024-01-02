@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session/session-service.service';
+import { ForgetPasswordComponent } from './user-management/forget-password/forget-password.component';
+import { StorageService } from 'src/app/models/StorageService';
 
 @Component({
   selector: 'app-post-login',
@@ -15,7 +17,7 @@ export class PostLoginComponent implements OnInit {
   isSurveyShareEnble: boolean;
 
 
-  constructor(private router: Router, private dialog: MatDialog,private sessionService: SessionService) {
+  constructor(private router: Router, private dialog: MatDialog,private sessionService: SessionService,    private sessionStorage: StorageService) {
     this.sessionTimeOutSet();
     this.isSurveyShareEnble = true;
     this.router.events.subscribe((event) => {
@@ -76,5 +78,16 @@ export class PostLoginComponent implements OnInit {
   logoutUser() {
     this.router.navigate(['/login']);
   }
+
+  forgetPassword() {
+
+    const user=this.sessionStorage.getItem("user");
+
+    const dialogRef = this.dialog.open(ForgetPasswordComponent, { data: user.user.id, width: '600px', height: '230px' });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
 }
 

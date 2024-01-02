@@ -159,6 +159,19 @@
               <a (click)="edit(element.id)" class="table-action-buttons-column" title="Edit"><img
                   class="table-action-button" src="assets/images/icons/ic_edit.svg" alt="Edit">
               </a>
+
+              <a (click)="forgetPassword(element.id)" class="table-action-buttons-column" title="Edit"><img
+                class="table-action-button" src="assets/images/icons/ic_forget.svg" alt="Edit">
+              </a>
+
+              <a (click)="lock(element.id)" class="table-action-buttons-column" title="Edit"><img
+                class="table-action-button" src="assets/images/icons/ic_lock.svg" alt="Edit">
+              </a>
+
+            
+            <a (click)="unlock(element.id)" class="table-action-buttons-column" title="Edit"><img
+              class="table-action-button" src="assets/images/icons/ic_unlock.svg" alt="Edit">
+            </a>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

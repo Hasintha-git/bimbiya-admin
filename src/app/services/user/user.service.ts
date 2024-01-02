@@ -40,6 +40,23 @@ export class UserService {
   }
 
   
+  
+  lockUser(id: any): Observable<any> {
+    return this.httpClient.post(this.requestUrl+ `/lock/`+ `${id}`, {
+      responseType: 'json'
+    });
+  }
+
+  unlockUser(id: any): Observable<any> {
+    return this.httpClient.post(this.requestUrl+ `/unlock/`+ `${id}`, {
+      responseType: 'json'
+    });
+  }
+
+  forgetPassword(object: any): Observable<any> {
+    return this.httpClient.put(this.requestUrl+`/forget-password`, object, { responseType: 'json' });
+  }
+
   deleteUser(id: any): Observable<any> {
     return this.httpClient.delete(this.requestUrl+ `/`+ `${id}`, {
       responseType: 'json'

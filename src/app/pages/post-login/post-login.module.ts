@@ -40,6 +40,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RegexFormateModule } from 'src/app/utility/directive/regex-formate.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { EmptyPipe } from 'src/app/utility/pipes/empty';
+import { ForgetPasswordComponent } from './user-management/forget-password/forget-password.component';
+import { LockUserComponent } from './user-management/lock-user/lock-user.component';
+import { UnlockUserComponent } from './user-management/unlock-user/unlock-user.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,9 @@ import { EmptyPipe } from 'src/app/utility/pipes/empty';
     EditUserComponent,
     AddUserComponent,
     ViewUserComponent,
+    ForgetPasswordComponent,
+    LockUserComponent,
+    UnlockUserComponent,
   ],
   imports: [
     CommonModule,

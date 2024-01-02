@@ -178,9 +178,9 @@
             </button>
 
             <mat-menu #menu="matMenu">
-                <button mat-menu-item>
-                  <mat-icon>person</mat-icon>
-                  <span>Register new user</span>
+                <button mat-menu-item (click)="forgetPassword()">
+                  <mat-icon>lock_reset</mat-icon>
+                  <span>Forget Password</span>
                 </button>
             
                 <button mat-menu-item  (click)="logoutUser()">

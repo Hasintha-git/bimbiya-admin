@@ -19,6 +19,9 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { Commondatasource } from '../../datasource/Commondatasource';
 import { DataTable } from '../../models/data-table';
+import { LockUserComponent } from './lock-user/lock-user.component';
+import { UnlockUserComponent } from './unlock-user/unlock-user.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 @Component({
   selector: 'app-user-management',
@@ -202,6 +205,34 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
     dialogRef.afterClosed().subscribe(result => {
     });
   }
+
+  
+  lock(id: any) {
+    const dialogRef = this.dialog.open(LockUserComponent, { data: id, width: '350px', height: '180px' });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.resetUserSearch();
+    });
+  }
+
+    
+  unlock(id: any) {
+    const dialogRef = this.dialog.open(UnlockUserComponent, { data: id, width: '350px', height: '180px' });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.resetUserSearch();
+    });
+  }
+
+  forgetPassword(id: any) {
+    const dialogRef = this.dialog.open(ForgetPasswordComponent, { data: id, width: '600px', height: '230px' });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.resetUserSearch();
+    });
+  }
+
+
 
   ngOnDestroy() {
     this.dialog.closeAll();
