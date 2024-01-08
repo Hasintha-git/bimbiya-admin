@@ -9,12 +9,12 @@
                     <img class="post-login-logo" src="../../../assets/images/bimbiya-logo.png" routerLink="/post-login/dashboard"  alt="">
                 </mat-card-header>
             </mat-card>
-            <mat-list>
+            <!-- <mat-list>
                 <button routerLink="dashboard" routerLinkActive="activated-route" class="menu-item" mat-flat-button>
                       <img class="menu_img" src="../../../assets/icons/dashboard_FILL0_wght400_GRAD0_opsz48.svg" alt="">
                     <span class="txt_route">Dashboard</span>
                 </button>
-            </mat-list>
+            </mat-list> -->
             <!-- <mat-list>
                 <button routerLink="customer-management" routerLinkActive="activated-route" class="menu-item"
                     mat-flat-button>
@@ -95,14 +95,22 @@
                         mat-flat-button>
                       <span class="txt_route">Pending Order</span>
                     </button>
-                    <button routerLink="approved-order" routerLinkActive="activated-route" class="menu-item"
+                    <button routerLink="processing-order" routerLinkActive="activated-route" class="menu-item"
                         mat-flat-button>
-                      <span class="txt_route">Approved Order</span>
+                      <span class="txt_route">Processing Order</span>
                     </button>
                     <button routerLink="delivered-order" routerLinkActive="activated-route" class="menu-item"
                         mat-flat-button>
                       <span class="txt_route">Delivered Order</span>
                     </button>
+                    <button routerLink="shipped-order" routerLinkActive="activated-route" class="menu-item"
+                    mat-flat-button>
+                  <span class="txt_route">Shipped Order</span>
+                </button>
+                <button routerLink="canceled-order" routerLinkActive="activated-route" class="menu-item"
+                mat-flat-button>
+              <span class="txt_route">Canceled Order</span>
+            </button>
               </mat-expansion-panel>
 
             <mat-expansion-panel style="width: 95%; border-top-right-radius: 50px; border-bottom-right-radius: 50px;box-shadow: none;margin-top: 20px;">
@@ -113,13 +121,13 @@
                   </mat-panel-title>
 
                   <mat-panel-description>
-                    Bite Section
+                    Product Section
                   </mat-panel-description>
 
                 </mat-expansion-panel-header>
                     <button routerLink="bite-section/product" routerLinkActive="activated-route" class="menu-item"
                         mat-flat-button>
-                      <span class="txt_route">Bite Management</span>
+                      <span class="txt_route">Product Management</span>
                     </button>
                     <button routerLink="bite-section/ingredient" routerLinkActive="activated-route" class="menu-item"
                     mat-flat-button>
@@ -178,14 +186,14 @@
             </button>
 
             <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="forgetPassword()">
+                <!-- <button mat-menu-item (click)="forgetPassword()">
                   <mat-icon>lock_reset</mat-icon>
                   <span>Forget Password</span>
-                </button>
+                </button> -->
             
                 <button mat-menu-item  (click)="logoutUser()">
                     <mat-icon>logout</mat-icon>
-                  <span>Logout</span>
+                  <span>Logout User</span>
                 </button>
               </mat-menu>
         </mat-toolbar>

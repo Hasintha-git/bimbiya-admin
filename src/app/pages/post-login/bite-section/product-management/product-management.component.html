@@ -2,7 +2,7 @@
     <div class="common-input-field-section">
         <div class="input-fields">
             <mat-form-field class="min-field" appearance="outline">
-              <mat-label>Meal Name</mat-label>
+              <mat-label>Product Name</mat-label>
               <input matInput type="text" [formControl]="mealName" [(ngModel)]="searchModel.mealName" appRegex
                 regexType="letter_num_space" [attr.maxlength]="20" />
             </mat-form-field>
@@ -30,6 +30,18 @@
             </mat-form-field>
           </div>
       
+          <div class="input-fields" >
+            <mat-form-field class="min-field" appearance="outline">
+              <mat-label>Product Category</mat-label>
+              <mat-select [formControl]="productCategory" [(ngModel)]="searchModel.productCategory">
+                <mat-option [value]="">Select Category</mat-option>
+                <mat-option *ngFor="let ur of productCatList" [value]="ur.code">
+                  {{ur.description}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
           <div class="input-fields">
             <mat-form-field class="min-field" appearance="outline">
               <mat-label>Status</mat-label>
@@ -71,7 +83,7 @@
           <!-- mealName Column -->
           <ng-container matColumnDef="mealName">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              Meal Name
+              Product Name
             </th>
             <td mat-cell *matCellDef="let element"> {{element.mealName }}</td>
           </ng-container>

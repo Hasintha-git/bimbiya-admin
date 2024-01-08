@@ -43,6 +43,9 @@ import { EmptyPipe } from 'src/app/utility/pipes/empty';
 import { ForgetPasswordComponent } from './user-management/forget-password/forget-password.component';
 import { LockUserComponent } from './user-management/lock-user/lock-user.component';
 import { UnlockUserComponent } from './user-management/unlock-user/unlock-user.component';
+import { RejectedOrderComponent } from './rejected-order/rejected-order.component';
+import { ShippedOrderComponent } from './shipped-order/shipped-order.component';
+import { ViewOrderComponent } from './approved-order/view-order/view-order.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +67,9 @@ import { UnlockUserComponent } from './user-management/unlock-user/unlock-user.c
     ForgetPasswordComponent,
     LockUserComponent,
     UnlockUserComponent,
+    RejectedOrderComponent,
+    ShippedOrderComponent,
+    ViewOrderComponent
   ],
   imports: [
     CommonModule,
@@ -91,7 +97,7 @@ import { UnlockUserComponent } from './user-management/unlock-user/unlock-user.c
     MatDialogModule,
     MatDatepickerModule,
     MatStepperModule,
-    MatFormFieldModule
+    MatFormFieldModule,
   ]
 })
 export class PostLoginModule { }

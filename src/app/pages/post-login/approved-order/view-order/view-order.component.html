@@ -1,0 +1,154 @@
+<div class="input-dialog-container">
+  <div class="dialog-title">View Order Details</div>
+
+  <div class="btn-close" (click)="closeDialog()">
+  </div>
+  <div class="title-content-devider"></div>
+  <div class="dialog-content modal-content">
+  <div class="dialog-input-fields">
+
+    <div class="view-data">
+      <label for="orderId" class="label">Order Id</label>
+      <p title="{{oderResponseModel.orderId }}" class="data">{{oderResponseModel.orderId }}</p>
+    </div>
+    <div class="view-data">
+      <label for="userId" class="label">User Id</label>
+      <p title="{{oderResponseModel.userId }}" class="data">{{oderResponseModel.userId }}</p>
+    </div>
+    <div class="view-data">
+      <label for="orderDate" class="label">Order Date</label>
+      <p title="{{oderResponseModel.orderDate }}" class="data">{{oderResponseModel.orderDate }}</p>
+    </div>
+
+    <div class="view-data">
+      <label for="totalAmount" class="label">Total Amount</label>
+      <p title="{{oderResponseModel.totalAmount }}" class="data">{{oderResponseModel.totalAmount}}</p>
+    </div>
+
+    <div class="view-data">
+      <label for="status" class="label">Status</label>
+      <p title="{{oderResponseModel.status}}" class="data">{{oderResponseModel.status}}</p>
+    </div>
+
+    <div class="view-data">
+      <label for="createdTime" class="label">Created Date & Time</label>
+      <p title="{{oderResponseModel.createdTime }}" class="data">{{oderResponseModel.createdTime| date:"yyyy/MM/dd 'at'
+        h:mm a" }}</p>
+    </div>
+
+    <div class="view-data">
+      <label for="lastUpdatedTime" class="label">Last Updated Date & Time</label>
+      <p title="{{oderResponseModel.lastUpdatedTime }}" class="data">{{oderResponseModel.lastUpdatedTime|
+        date:"yyyy/MM/dd 'at' h:mm a" }}</p>
+    </div>
+    
+    <div class="data-row">
+    <div class="dialog-title">User Details</div>
+  </div>
+
+  <div class="view-data">
+      <label for="username" class="label">User Name</label>
+      <p title="{{oderResponseModel.username}}" class="data">{{oderResponseModel.username}}</p>
+    </div>
+
+    <div class="view-data">
+      <label for="fullName" class="label">Full Name</label>
+      <p title="{{oderResponseModel.fullName}}" class="data">{{oderResponseModel.fullName}}</p>
+    </div>
+
+    <div class="view-data">
+      <label for="email" class="label">Email</label>
+      <p title="{{oderResponseModel.email}}" class="data">{{oderResponseModel.email}}</p>
+    </div>
+
+    <div class="view-data">
+      <label for="mobileNo" class="label">Mobile No</label>
+      <p title="{{oderResponseModel.mobileNo}}" class="data">{{oderResponseModel.mobileNo}}</p>
+    </div>
+
+    <div class="view-data">
+      <label for="address" class="label">address</label>
+      <p title="{{oderResponseModel.address}}" class="data">{{oderResponseModel.address}}</p>
+    </div>
+
+    <div class="view-data">
+      <label for="city" class="label">city</label>
+      <p title="{{oderResponseModel.city}}" class="data">{{oderResponseModel.city}}</p>
+    </div>
+
+    <div class="common-table-section">
+      <div class="data-row">
+    <div class="dialog-title">Purchase Order Details</div>
+  </div>
+      <div class="mat-elevation-z8">
+        <div class="scrollable-table">
+          <table mat-table [dataSource]="dataSource" matSort>
+            <!-- action Column -->
+            <ng-container matColumnDef="view" sticky>
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let element" class="table-action-buttons-column">
+                <a (click)="view(element.orderId)" class="table-action-buttons-column" title="View"><img
+                    class="table-action-button" src="assets/images/icons/ic_view.svg" alt="View">
+                </a>
+
+              </td>
+            </ng-container>
+
+            <!-- orderId Column -->
+            <ng-container matColumnDef="orderDetailId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Order Detail Id
+              </th>
+              <td mat-cell *matCellDef="let element"> {{element.orderDetailId | empty}}</td>
+            </ng-container>
+
+            <!-- productName Column -->
+            <ng-container matColumnDef="productName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Product Name
+              </th>
+              <td mat-cell *matCellDef="let element"> {{element.productName | empty}}</td>
+            </ng-container>
+
+            <!-- quantity Column -->
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Quantity
+              </th>
+              <td mat-cell *matCellDef="let element"> {{element.quantity | empty}}</td>
+            </ng-container>
+
+            <!-- unitPrice Column -->
+            <ng-container matColumnDef="unitPrice">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Unit Price
+              </th>
+              <td mat-cell *matCellDef="let element"> {{element.unitPrice | empty}}</td>
+            </ng-container>
+            <!-- subTotal Column -->
+            <ng-container matColumnDef="subTotal">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Sub Total
+              </th>
+              <td mat-cell *matCellDef="let element"> {{element.subTotal | empty}}</td>
+            </ng-container>
+            <!-- potion Column -->
+            <ng-container matColumnDef="potion">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Potion
+              </th>
+              <td mat-cell *matCellDef="let element"> {{element.potion | empty}}</td>
+            </ng-container>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let element; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>

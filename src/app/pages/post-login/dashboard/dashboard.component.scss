@@ -69,7 +69,7 @@
         width: 300px;
         height: 80px;
         border-radius: 20px;
-        border: 1px solid #75AFEB;
+        // border: 1px solid #75AFEB;
         display: flex;
         align-items: center;
         flex-direction: row;
@@ -100,7 +100,7 @@
         width: 300px;
         height: 80px;
         border-radius: 20px;
-        border: 1px solid #75AFEB;
+        // border: 1px solid #75AFEB;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -112,7 +112,7 @@
         width: 300px;
         height: 80px;
         border-radius: 20px;
-        border: 1px solid #75AFEB;
+        // border: 1px solid #75AFEB;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -123,27 +123,21 @@
   }
 
   .div_main_2 {
-    width: 100%;
-    display: flex;
-    // flex: 2;
-    margin-top: 15px;
-    background-color: transparent;
-    border-radius: 25px;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Adjust alignment as needed */
 
-    .dev_table_1 {
-      width: 100%;
-      height: 320px;
-      border-radius: 25px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      background-color: white;
-      margin-left: 15px;
-      margin-right: 15px;
-      padding-bottom: 20px;
+
+.dev_table_1 {
+  width: 49%; /* Adjust width as needed */
+  height: 460px; /* Adjust height as needed */
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  overflow: hidden;
 
       .dev_table_1_div1 {
         width: 100%;
@@ -153,6 +147,7 @@
         align-items: center;
         flex-direction: column;
         margin-top: 10px;
+        overflow: hidden;
 
         .lbl_title_header {
           font-weight: bold;
@@ -298,7 +293,7 @@
 
   .div_main_3 {
     flex-direction: column !important;
-    height: 800px !important;
+    height: auto !important;
     justify-content: space-between !important;
     .dev_table_1 {
       width: 100% !important;
@@ -443,3 +438,121 @@
 #barChart[aria-label] {
   display: none !important;
 }
+
+
+
+.style-box1 {
+  // display: flex;
+  width: 100%;
+  height: 100%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 5px;
+}
+.style-box2 {
+  // display: flex;
+  width: 100%;
+  height: 100%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 5px;
+}
+.style-box3 {
+  // display: flex;
+  width: 100%;
+  height: 100%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 5px;
+}
+.overview_card .overview_top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.overview_card .overview_top div {
+	display: flex;
+	align-items: center;
+    justify-content: center;
+    text-align: center;
+	gap: 5px;
+}
+
+.icon-dash {
+	width: 25px;
+    padding-bottom: 5px;
+}
+
+.overview_card .overview_top div p {
+	font-size: 12px;
+	font-weight: 700;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.overview_card .overview_top p {
+	font-size: 13px;
+	font-weight: 500;
+	color: #62f9ba;
+}
+
+.overview_num {
+	font-size: 35px;
+	font-weight: 500;
+	color: #fff;
+	margin-top: 10px;
+	margin-left: 5px;
+}
+
+.overview_text {
+	font-size: 10px;
+	letter-spacing: 0.3em;
+	text-transform: uppercase;
+	color: #ffffff;
+	margin-bottom: 10px;
+	margin-left: 5px;
+}
+
+.l-bg-cherry {
+    background: linear-gradient(to right, #F40B75, hsl(190, 70%, 77%)) !important;
+    color: #fff;
+    &:hover {
+      background: linear-gradient(to right, hsl(190, 70%, 77%), #F40B75) !important;
+    }
+  }
+  
+  .l-bg-blue-dark {
+    background: linear-gradient(to right, #0096FE, hsl(190, 70%, 77%)) !important;
+    color: #fff;
+    &:hover {
+      background: linear-gradient(to right, hsl(190, 70%, 77%), #0096FE) !important;
+    }
+  }
+  
+  .l-bg-green-dark {
+    background: linear-gradient(to right, #7D43C3, hsl(190, 70%, 77%)) !important;
+    color: #fff;
+    &:hover {
+      background: linear-gradient(to right, hsl(190, 70%, 77%), #7D43C3) !important;
+    }
+  }
+  
+  .l-bg-orange-dark {
+    background: linear-gradient(to right, #00ccff, hsl(190, 70%, 77%)) !important;
+    color: #fff;
+    &:hover {
+      background: linear-gradient(to right, hsl(190, 70%, 77%), #00ccff) !important;
+  
+    }
+  }
+
+
+  .chart-container {
+    width: 95% !important;
+    height: 90% !important;
+    overflow: hidden;
+  }
+  

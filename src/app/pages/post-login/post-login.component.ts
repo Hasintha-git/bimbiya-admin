@@ -14,12 +14,10 @@ export class PostLoginComponent implements OnInit {
   isVisible = true;
   contentMargin = 240;
   activeRouter = "Dashboard";
-  isSurveyShareEnble: boolean;
 
 
   constructor(private router: Router, private dialog: MatDialog,private sessionService: SessionService,    private sessionStorage: StorageService) {
     this.sessionTimeOutSet();
-    this.isSurveyShareEnble = true;
     this.router.events.subscribe((event) => {
       event instanceof NavigationEnd ? this.titleChange(event.urlAfterRedirects): null
 
@@ -44,20 +42,25 @@ export class PostLoginComponent implements OnInit {
 
     if (rout=='dashboard') {
       this.activeRouter = 'Dashboard';
-      this.isSurveyShareEnble = false;
-    }else if (rout=='employee-analytics') {
-      this.activeRouter = 'Employee Analytics'
-      this.isSurveyShareEnble = true;
-    } else if (rout ==='employee-analytics/employee-profile') {
-      this.activeRouter = 'Employee Analytics > Employee Profile'
-      this.isSurveyShareEnble = true;
-    }  else if (rout ==='employee-analytics/employee-profile/edit-employee-profile') {
-      this.activeRouter = 'Employee Analytics > Employee Profile > Edit Employee Profile'
-      this.isSurveyShareEnble = true;
+    }else if (rout=='pending-order') {
+      this.activeRouter = 'Pending Order'
+    } else if (rout ==='processing-order') {
+      this.activeRouter = 'Processing Order'
+    }  else if (rout ==='delivered-order') {
+      this.activeRouter = 'Delivery Order'
+    }  else if (rout ==='canceled-order') {
+      this.activeRouter = 'Canceled Order'
+    }  else if (rout ==='shipped-order') {
+      this.activeRouter = 'Shipped Order'
     } 
-    else if (rout =='employee-analytics/add-employee') {
-      this.activeRouter = 'Employee Analytics > Add New Employee'
-      this.isSurveyShareEnble = true;
+    else if (rout =='bite-section/product') {
+      this.activeRouter = 'Product Section > Product Management'
+    }
+    else if (rout =='bite-section/ingredient') {
+      this.activeRouter = 'Product Section > Ingredient Management'
+    }
+    else if (rout =='user-management') {
+      this.activeRouter = 'User Management'
     }
   }
   ngOnInit(): void {

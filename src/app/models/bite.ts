@@ -4,6 +4,7 @@ export class Bite {
   description: string;
   price: string;
   portion: string;
+  productCategory: string;
   portionDescription: string;
   status: string;
   statusDescription: string;

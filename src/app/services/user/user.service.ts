@@ -39,7 +39,9 @@ export class UserService {
     return this.httpClient.post(this.requestUrl + `/find-id`, object, { responseType: 'json' });
   }
 
-  
+  getDashboardCounts(): Observable<any> {
+    return this.httpClient.get(this.requestUrl + `/for-dashboard`, { responseType: 'json' });
+  }
   
   lockUser(id: any): Observable<any> {
     return this.httpClient.post(this.requestUrl+ `/lock/`+ `${id}`, {

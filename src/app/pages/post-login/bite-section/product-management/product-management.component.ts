@@ -37,6 +37,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
   public statusList: SimpleBase[];
   public portionList: SimpleBase[];
   public ingredientsList: SimpleBase[];
+  public productCatList: SimpleBase[];
   public searchReferenceData: Map<string, Object[]>;
   public isSearch: boolean;
   public access: any;
@@ -67,7 +68,8 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
       mealName: new FormControl(''),
       price: new FormControl(''),
       status: new FormControl(''),
-      portion: new FormControl('')
+      portion: new FormControl(''),
+      productCategory: new FormControl(''),
     });
   }
 
@@ -77,6 +79,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
         this.statusList = response.statusList;
         this.portionList = response.portionList;
         this.ingredientsList = response.ingredientsList;
+        this.productCatList = response.productCatList;
       },
       error => {
         this.toast.errorMessage(error.error['message']);
@@ -147,6 +150,9 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
     if (searchModel.portion) {
       searchParamMap.set("portion", searchModel.portion);
     }
+    if (searchModel.productCategory) {
+      searchParamMap.set("productCategory", searchModel.productCategory);
+    }
     return searchParamMap;
   }
 
@@ -170,6 +176,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
     dialogRef.componentInstance.statusList = this.statusList;
     dialogRef.componentInstance.portionList = this.portionList;
     dialogRef.componentInstance.ingredientsList = this.ingredientsList;
+    dialogRef.componentInstance.productCatList = this.productCatList;
     dialogRef.afterClosed().subscribe(result => {
       this.reset();
     });
@@ -180,6 +187,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
     dialogRef.componentInstance.statusList = this.statusList;
     dialogRef.componentInstance.portionList = this.portionList;
     dialogRef.componentInstance.ingredientsList = this.ingredientsList;
+    dialogRef.componentInstance.productCatList = this.productCatList;
     dialogRef.afterClosed().subscribe(result => {
       this.reset();
     });
@@ -218,6 +226,9 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
 
   get portion() {
     return this.biteSearch.get('portion');
+  }
+  get productCategory() {
+    return this.biteSearch.get('productCategory');
   }
 }
 

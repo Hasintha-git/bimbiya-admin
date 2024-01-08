@@ -124,7 +124,7 @@ export class DeliveredOrderComponent implements OnInit, AfterViewInit, OnDestroy
     if (searchModel.userId) {
       searchParamMap.set("userId", searchModel.userId);
     }
-    searchParamMap.set("status", "complete");
+    searchParamMap.set("status", "completed");
 
     if (searchModel.orderDate) {
       searchParamMap.set("orderDate", searchModel.orderDate.toLocaleDateString());

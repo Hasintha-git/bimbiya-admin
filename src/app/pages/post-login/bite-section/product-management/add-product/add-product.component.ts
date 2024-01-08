@@ -24,6 +24,7 @@ export class AddProductComponent implements OnInit {
   public statusList: SimpleBase[];
   public portionList: SimpleBase[];
   public ingredientsList: SimpleBase[];
+  public productCatList: SimpleBase[];
   maxDate = new Date();
 
   imageFile: File = null;
@@ -72,7 +73,10 @@ export class AddProductComponent implements OnInit {
       ]),
       status: this.formBuilder.control('', [
         Validators.required
-      ])
+      ]),
+      productCategory: this.formBuilder.control('', [
+        Validators.required
+      ]),
     });
 
   }
@@ -198,7 +202,9 @@ export class AddProductComponent implements OnInit {
   get status() {
     return this.productAdd.get('status');
   }
-
+  get productCategory() {
+    return this.productAdd.get('productCategory');
+  }
 
   closeDialog() {
     this.dialogRef.close();

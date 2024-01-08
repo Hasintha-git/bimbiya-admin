@@ -15,12 +15,13 @@ import { DataTable } from '../../models/data-table';
 import { OrderResponse } from 'src/app/models/response/order-response';
 import { OrderService } from 'src/app/services/order/order.service';
 import { ViewOrderComponent } from '../approved-order/view-order/view-order.component';
+
 @Component({
-  selector: 'app-pending-order',
-  templateUrl: './pending-order.component.html',
-  styleUrls: ['./pending-order.component.scss']
+  selector: 'app-shipped-order',
+  templateUrl: './shipped-order.component.html',
+  styleUrls: ['./shipped-order.component.scss']
 })
-export class PendingOrderComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ShippedOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
@@ -125,7 +126,7 @@ export class PendingOrderComponent implements OnInit, AfterViewInit, OnDestroy {
     if (searchModel.userId) {
       searchParamMap.set("userId", searchModel.userId);
     }
-    searchParamMap.set("status", "pending");
+    searchParamMap.set("status", "shipped");
 
     if (searchModel.orderDate) {
       searchParamMap.set("orderDate", searchModel.orderDate.toLocaleDateString());
@@ -143,15 +144,17 @@ export class PendingOrderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.initialDataLoader();
   }
 
+  resetSearch() {
+    this.userSearch.reset();
+    this.initialDataLoader();
+  }
+
+
   view(id: any) {
     console.log(id)
     const dialogRef = this.dialog.open(ViewOrderComponent, { data: id });
     dialogRef.afterClosed().subscribe(result => {
     });
-  }
-  resetSearch() {
-    this.userSearch.reset();
-    this.initialDataLoader();
   }
 
   ngOnDestroy() {

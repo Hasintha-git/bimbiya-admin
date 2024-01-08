@@ -8,10 +8,10 @@
         <div class="dialog-input-fields">
             <div class="input-fields">
                 <mat-form-field class="min-field" appearance="outline">
-                    <mat-label>Meal Name</mat-label>
+                    <mat-label>Product Name</mat-label>
                     <input matInput [formControl]="ingredientsName" [maxlength]="32" autoComplete='off'
                         [(ngModel)]="ingredientAdd.ingredientsName" appRegexFormate regexType="letter_num" required>
-                    <mat-error *ngIf="ingredientsName.hasError('required')">Meal name cannot be
+                    <mat-error *ngIf="ingredientsName.hasError('required')">Product name cannot be
                         empty
                     </mat-error>
                 </mat-form-field>

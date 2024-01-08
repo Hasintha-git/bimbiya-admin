@@ -11,15 +11,17 @@ import { TrendingItemComponent } from './trending-item/trending-item.component';
 import { CategoryManagementComponent } from './category-management/category-management.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { BiteSectionModule } from './bite-section/bite-section.module';
+import { ShippedOrderComponent } from './shipped-order/shipped-order.component';
+import { RejectedOrderComponent } from './rejected-order/rejected-order.component';
 
 const routes: Routes = [
   {path:'',component:PostLoginComponent, children:[
-    {path:'',redirectTo:'dashboard',pathMatch:'full'},
+    {path:'',redirectTo:'pending-order',pathMatch:'full'},
     {path:'dashboard',component:DashboardComponent},
-    {path:'customer-management',component:CustomerManagementComponent},
-    {path:'foodcity-management',component:FoodcityManagementComponent},
     {path:'pending-order',component:PendingOrderComponent},
-    {path:'approved-order',component:ApprovedOrderComponent},
+    {path:'shipped-order',component:ShippedOrderComponent},
+    {path:'canceled-order',component:RejectedOrderComponent},
+    {path:'processing-order',component:ApprovedOrderComponent},
     {path:'delivered-order',component:DeliveredOrderComponent},
     {path:'trending-item',component:TrendingItemComponent},
     {path:'category-management',component:CategoryManagementComponent},

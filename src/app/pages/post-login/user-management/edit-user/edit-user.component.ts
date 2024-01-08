@@ -73,7 +73,7 @@ export class EditUserComponent implements OnInit {
 
   initialValidator() {
     this.userAdd = this.formBuilder.group({
-      username: this.formBuilder.control({ value: '', disabled: true }, [Validators.required]),
+      username: this.formBuilder.control({ value: '', disabled: true }, []),
       fullName: this.formBuilder.control('', [
         Validators.required
       ]),
@@ -99,7 +99,7 @@ export class EditUserComponent implements OnInit {
       address: this.formBuilder.control('', []),
       city: this.formBuilder.control('', []),
       primaryEmail: ['', Validators.email],
-      dateOfBirth: this.formBuilder.control({ value: '', disabled: true }, [Validators.required]),
+      dateOfBirth: this.formBuilder.control({ value: '', disabled: true }, []),
     });
 
     this.userAdd.get('email').setValidators(Validators.email);

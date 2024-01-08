@@ -14,6 +14,8 @@ import { Commondatasource } from '../../datasource/Commondatasource';
 import { DataTable } from '../../models/data-table';
 import { OrderResponse } from 'src/app/models/response/order-response';
 import { OrderService } from 'src/app/services/order/order.service';
+import { ViewProductComponent } from '../bite-section/product-management/view-product/view-product.component';
+import { ViewOrderComponent } from './view-order/view-order.component';
 
 @Component({
   selector: 'app-approved-order',
@@ -125,7 +127,7 @@ export class ApprovedOrderComponent implements OnInit, AfterViewInit, OnDestroy 
     if (searchModel.userId) {
       searchParamMap.set("userId", searchModel.userId);
     }
-    searchParamMap.set("status", "approved");
+    searchParamMap.set("status", "processing");
 
     if (searchModel.orderDate) {
       searchParamMap.set("orderDate", searchModel.orderDate.toLocaleDateString());
@@ -150,11 +152,11 @@ export class ApprovedOrderComponent implements OnInit, AfterViewInit, OnDestroy 
 
 
   view(id: any) {
-    // const dialogRef = this.dialog.open(ViewUserComponent, { data: id });
-    // dialogRef.afterClosed().subscribe(result => {
-    // });
+    console.log(id)
+    const dialogRef = this.dialog.open(ViewOrderComponent, { data: id });
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
-
   ngOnDestroy() {
     this.dialog.closeAll();
   }
