@@ -15,6 +15,10 @@ import { DataTable } from '../../models/data-table';
 import { OrderResponse } from 'src/app/models/response/order-response';
 import { OrderService } from 'src/app/services/order/order.service';
 import { ViewOrderComponent } from '../approved-order/view-order/view-order.component';
+import { Order } from 'src/app/models/order';
+import { CommonResponse } from 'src/app/models/response/CommonResponse';
+import { OrderStatusChangeComponent } from '../../component/order-status-change/order-status-change.component';
+import { StorageService } from 'src/app/models/StorageService';
 @Component({
   selector: 'app-pending-order',
   templateUrl: './pending-order.component.html',
@@ -32,19 +36,21 @@ export class PendingOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   public statusList: SimpleBase[];
   public searchReferenceData: Map<string, Object[]>;
   public isSearch: boolean;
-  public access: any;
+  public access: any;  
+  orderModelAdd = new Order();
 
   displayedColumns: string[] = ['view', 'orderId', 'userId', 'orderDate', 'totalAmount', 'action'];
 
   constructor(
     public dialog: MatDialog,
-    public toast: ToastServiceService,
     public router: Router,
     private spinner: NgxSpinnerService,
     private orderService: OrderService,
+    public toastService: ToastServiceService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private commonFunctionService: CommonFunctionService
+    private commonFunctionService: CommonFunctionService,
+    private sessionStorage: StorageService,
   ) {}
 
   ngOnInit() {
@@ -63,12 +69,14 @@ export class PendingOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   prepareReferenceData(): void {
-    this.orderService.getSearchData(true)
+    console.log(this.sessionStorage.getItem('session'))
+    const token = this.sessionStorage.getItem('session');
+    this.orderService.getSearchData(true,token)
       .subscribe((response: any) => {
         this.statusList = response.statusList;
       },
       error => {
-        this.toast.errorMessage(error.error['message']);
+        this.toastService.errorMessage(error.error['message']);
       }
     );
   }
@@ -104,7 +112,8 @@ export class PendingOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   getList() {
     let searchParamMap = this.commonFunctionService.getDataTableParam(this.paginator, this.sort);
     searchParamMap = this.getSearchString(searchParamMap, this.searchModel);
-    this.orderService.getList(searchParamMap)
+    const token = sessionStorage.getItem('session');
+    this.orderService.getList(searchParamMap,token)
       .subscribe((data: DataTable<OrderResponse>) => {
         this.orderList = data.records;
         console.log("---->",this.orderList)
@@ -116,9 +125,17 @@ export class PendingOrderComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       error => {
         this.spinner.hide();
-        this.toast.errorMessage(error.error['errorDescription']);
+        this.toastService.errorMessage(error.error['errorDescription']);
       }
     );
+  }
+
+  orderStatusChange(orderId:any,status:any ) {
+    const dialogRef = this.dialog.open(OrderStatusChangeComponent, {data: orderId});
+    dialogRef.componentInstance.orderStatus = status;
+    dialogRef.afterClosed().subscribe(result => {
+      this.initialDataLoader();
+    });
   }
 
   getSearchString(searchParamMap: Map<string, any>, searchModel: OrderResponse): Map<string, string> {

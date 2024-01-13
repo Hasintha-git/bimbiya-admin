@@ -13,10 +13,15 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { BiteSectionModule } from './bite-section/bite-section.module';
 import { ShippedOrderComponent } from './shipped-order/shipped-order.component';
 import { RejectedOrderComponent } from './rejected-order/rejected-order.component';
+import { SignInComponent } from '../pre-login/sign-in/sign-in.component';
+import { NotFoundComponent } from '../component/not-found/not-found.component';
+import { AuthGuard } from 'src/app/utility/authguard/auth.guard';
 
 const routes: Routes = [
-  {path:'',component:PostLoginComponent, children:[
-    {path:'',redirectTo:'pending-order',pathMatch:'full'},
+  {
+    path: 'base',
+    component: PostLoginComponent, canActivateChild : [AuthGuard],
+    children: [
     {path:'dashboard',component:DashboardComponent},
     {path:'pending-order',component:PendingOrderComponent},
     {path:'shipped-order',component:ShippedOrderComponent},

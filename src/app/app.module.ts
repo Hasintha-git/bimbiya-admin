@@ -22,12 +22,16 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule } from 'ngx-toastr';
+import { OrderStatusChangeComponent } from './pages/component/order-status-change/order-status-change.component';
+import { NotFoundComponent } from './pages/component/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
     SignUpComponent,
+    OrderStatusChangeComponent,
+    NotFoundComponent,
     ],
   imports: [
     BrowserModule,

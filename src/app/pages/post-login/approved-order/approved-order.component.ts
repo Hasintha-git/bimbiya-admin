@@ -16,6 +16,7 @@ import { OrderResponse } from 'src/app/models/response/order-response';
 import { OrderService } from 'src/app/services/order/order.service';
 import { ViewProductComponent } from '../bite-section/product-management/view-product/view-product.component';
 import { ViewOrderComponent } from './view-order/view-order.component';
+import { OrderStatusChangeComponent } from '../../component/order-status-change/order-status-change.component';
 
 @Component({
   selector: 'app-approved-order',
@@ -65,7 +66,8 @@ export class ApprovedOrderComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   prepareReferenceData(): void {
-    this.orderService.getSearchData(true)
+    const token = sessionStorage.getItem('session');
+    this.orderService.getSearchData(true,token)
       .subscribe((response: any) => {
         this.statusList = response.statusList;
       },
@@ -106,7 +108,8 @@ export class ApprovedOrderComponent implements OnInit, AfterViewInit, OnDestroy 
   getList() {
     let searchParamMap = this.commonFunctionService.getDataTableParam(this.paginator, this.sort);
     searchParamMap = this.getSearchString(searchParamMap, this.searchModel);
-    this.orderService.getList(searchParamMap)
+    const token = sessionStorage.getItem('session');
+    this.orderService.getList(searchParamMap,token)
       .subscribe((data: DataTable<OrderResponse>) => {
         this.orderList = data.records;
         console.log("---->",this.orderList)
@@ -157,6 +160,16 @@ export class ApprovedOrderComponent implements OnInit, AfterViewInit, OnDestroy 
     dialogRef.afterClosed().subscribe(result => {
     });
   }
+
+  
+  orderStatusChange(orderId:any,status:any ) {
+    const dialogRef = this.dialog.open(OrderStatusChangeComponent, {data: orderId});
+    dialogRef.componentInstance.orderStatus = status;
+    dialogRef.afterClosed().subscribe(result => {
+      this.initialDataLoader();
+    });
+  }
+
   ngOnDestroy() {
     this.dialog.closeAll();
   }

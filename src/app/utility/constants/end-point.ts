@@ -1,10 +1,16 @@
 const HOST: string = 'localhost';
-// const HOST: string = '104.152.222.98';
-const PORT: string = '8080';
-export const REGISTER: string = 'http://localhost:4200/register';
 
+//production
+// const HOST: string = 'bimbiya.com';
+
+const PORT: string = '8080';
+
+//production - true
 export const SECURE = false;
 
 export const getEndpoint = (isHttps:any) => {
+  //production point
+  // return `${isHttps ? 'https' : 'http'}://${HOST}/admin`;
+  
   return `${isHttps ? 'https' : 'http'}://${HOST}:${PORT}/admin`;
 };

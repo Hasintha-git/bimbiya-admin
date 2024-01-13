@@ -51,7 +51,8 @@ export class ViewOrderComponent implements OnInit {
 
   findById() {
     console.log(this.oderModel)
-    this.oderService.get(this.oderModel).subscribe(
+    const token = sessionStorage.getItem('session');
+    this.oderService.get(this.oderModel,token).subscribe(
       (user: any) => {
         this.oderResponseModel = user.data;
         

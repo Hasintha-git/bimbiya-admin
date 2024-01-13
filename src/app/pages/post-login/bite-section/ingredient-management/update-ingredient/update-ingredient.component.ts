@@ -99,6 +99,7 @@ export class UpdateIngredientComponent implements OnInit {
 
   reset() {
     this.productAdd.reset();
+    this.findById();
   }
 
   onSubmit() {

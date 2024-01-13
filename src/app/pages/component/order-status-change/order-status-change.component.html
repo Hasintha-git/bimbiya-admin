@@ -1,0 +1,19 @@
+<div class="confirmation-dialog-container">
+    <form (ngSubmit)="onSubmit()">
+      <div class="dialog-title">Process Order </div>
+  
+      <div class="btn-close" (click)="closeDialog()">
+      </div>
+  
+      <div class="title-content-devider"></div>
+  
+      <div class="dialog-content">
+        Do you want to <b>{{orderStatus}}</b> order with order ID: <b>{{orderModelAdd.orderId}}</b>?
+      </div>
+  
+      <div class="dialog-buttons">
+        <button type="button" mat-button class="custom-button secondary " (click)="closeDialog()">Cancel</button>
+        <button type="submit" mat-button class="custom-button primary">Confirm</button>
+      </div>
+    </form>
+  </div>

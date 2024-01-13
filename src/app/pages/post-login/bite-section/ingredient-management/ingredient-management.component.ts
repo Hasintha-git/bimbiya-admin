@@ -24,7 +24,7 @@ import { IngredientService } from 'src/app/services/ingredient/ingredient.servic
   templateUrl: './ingredient-management.component.html',
   styleUrls: ['./ingredient-management.component.scss']
 })
-export class IngredientManagementComponent implements OnInit {
+export class IngredientManagementComponent implements OnInit,AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 

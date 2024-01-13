@@ -5,7 +5,7 @@
   src: url('assets/fonts/SourceSansPro.ttf');
 }
 @import 'assets/scss/variables';
-@import './assets/scss/common'; 
+@import 'assets/scss/common'; 
 
 
 html, body { height: 100%; }
@@ -88,7 +88,7 @@ body { margin: 0; font-family: "SourceSansPro"; }
   max-height: 70px !important;
   // padding: 15px 15px 15px 15px !important;
   background-image:none !important;
-  background-image: url('../src/assets/icons/success.svg') !important;
+  background-image: url('assets/icons/success.svg') !important;
   background-size: 26px;
   background-color: #F4F4F4;
   border-radius: 10px;
@@ -113,7 +113,7 @@ body { margin: 0; font-family: "SourceSansPro"; }
   max-height: 70px !important;
   // padding: 15px 15px 15px 15px !important;
   background-image:none !important;
-  background-image: url('../src/assets/icons/error.svg') !important;
+  background-image: url('assets/icons/error.svg') !important;
   background-size: 26px;
   background-color: #F4F4F4;
   border-radius: 10px;
@@ -138,7 +138,7 @@ body { margin: 0; font-family: "SourceSansPro"; }
   max-height: 70px !important;
   // padding: 15px 15px 15px 15px !important;
   background-image:none !important;
-  background-image: url('../src/assets/icons/info.svg') !important;
+  background-image: url('assets/icons/info.svg') !important;
   background-size: 26px;
   background-color: #F4F4F4;
   border-radius: 10px;

@@ -14,6 +14,7 @@ import { Commondatasource } from '../../datasource/Commondatasource';
 import { DataTable } from '../../models/data-table';
 import { OrderResponse } from 'src/app/models/response/order-response';
 import { OrderService } from 'src/app/services/order/order.service';
+import { OrderStatusChangeComponent } from '../../component/order-status-change/order-status-change.component';
 @Component({
   selector: 'app-delivered-order',
   templateUrl: './delivered-order.component.html',
@@ -62,7 +63,8 @@ export class DeliveredOrderComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   prepareReferenceData(): void {
-    this.orderService.getSearchData(true)
+    const token = sessionStorage.getItem('session');
+    this.orderService.getSearchData(true,token)
       .subscribe((response: any) => {
         this.statusList = response.statusList;
       },
@@ -103,7 +105,8 @@ export class DeliveredOrderComponent implements OnInit, AfterViewInit, OnDestroy
   getList() {
     let searchParamMap = this.commonFunctionService.getDataTableParam(this.paginator, this.sort);
     searchParamMap = this.getSearchString(searchParamMap, this.searchModel);
-    this.orderService.getList(searchParamMap)
+    const token = sessionStorage.getItem('session');
+    this.orderService.getList(searchParamMap,token)
       .subscribe((data: DataTable<OrderResponse>) => {
         this.orderList = data.records;
         console.log("---->",this.orderList)
@@ -119,6 +122,15 @@ export class DeliveredOrderComponent implements OnInit, AfterViewInit, OnDestroy
       }
     );
   }
+
+  orderStatusChange(orderId:any,status:any ) {
+    const dialogRef = this.dialog.open(OrderStatusChangeComponent, {data: orderId});
+    dialogRef.componentInstance.orderStatus = status;
+    dialogRef.afterClosed().subscribe(result => {
+      this.initialDataLoader();
+    });
+  }
+
 
   getSearchString(searchParamMap: Map<string, any>, searchModel: OrderResponse): Map<string, string> {
     if (searchModel.userId) {

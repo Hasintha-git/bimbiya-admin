@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BiteSectionComponent } from './bite-section.component';
 import { ProductManagementComponent } from './product-management/product-management.component';
 import { IngredientManagementComponent } from './ingredient-management/ingredient-management.component';
+import { NotFoundComponent } from '../../component/not-found/not-found.component';
 
 const routes: Routes = [
   {path:'',component:BiteSectionComponent, children:[
@@ -10,6 +11,7 @@ const routes: Routes = [
     {path:'product',component:ProductManagementComponent},
     {path:'ingredient',component:IngredientManagementComponent},
   ]},
+  { path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({

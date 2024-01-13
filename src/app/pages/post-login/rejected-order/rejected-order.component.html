@@ -80,7 +80,15 @@
           <ng-container matColumnDef="action" stickyEnd>
             <th mat-header-cell *matHeaderCellDef>Delete</th>
             <td mat-cell *matCellDef="let element" class="table-action-buttons-column">
-  
+              <a (click)="orderStatusChange(element.orderId, 'processing')" class="table-action-buttons-column"
+              title="Processing"><img class="table-action-button" src="assets/icons/ic_processing.png" alt="View">
+            </a>
+            <a (click)="orderStatusChange(element.orderId, 'shipped')" class="table-action-buttons-column"
+              title="Shipped"><img class="table-action-button" src="assets/icons/ic_shipped.png" alt="View">
+            </a>
+            <a (click)="orderStatusChange(element.orderId, 'completed')" class="table-action-buttons-column"
+              title="Completed"><img class="table-action-button" src="assets/icons/ic_completed.png" alt="View">
+            </a>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

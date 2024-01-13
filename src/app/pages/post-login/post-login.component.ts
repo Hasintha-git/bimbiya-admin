@@ -4,6 +4,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session/session-service.service';
 import { ForgetPasswordComponent } from './user-management/forget-password/forget-password.component';
 import { StorageService } from 'src/app/models/StorageService';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-post-login',
@@ -16,7 +17,12 @@ export class PostLoginComponent implements OnInit {
   activeRouter = "Dashboard";
 
 
-  constructor(private router: Router, private dialog: MatDialog,private sessionService: SessionService,    private sessionStorage: StorageService) {
+  constructor(private router: Router, 
+    private dialog: MatDialog,
+    private sessionService: SessionService,    
+    private sessionStorage: StorageService,
+    private authService: AuthService,
+    ) {
     this.sessionTimeOutSet();
     this.router.events.subscribe((event) => {
       event instanceof NavigationEnd ? this.titleChange(event.urlAfterRedirects): null
@@ -79,7 +85,7 @@ export class PostLoginComponent implements OnInit {
   }
 
   logoutUser() {
-    this.router.navigate(['/login']);
+    this.authService.logOut();
   }
 
   forgetPassword() {

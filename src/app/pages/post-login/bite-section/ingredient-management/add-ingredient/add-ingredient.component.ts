@@ -42,6 +42,8 @@ export class AddIngredientComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+    console.log("ingredientService",this.ingredientService)
     this._prepare();
   }
 

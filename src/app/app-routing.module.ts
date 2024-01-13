@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PostLoginModule } from './pages/post-login/post-login.module';
 import { SignInComponent } from './pages/pre-login/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/pre-login/sign-up/sign-up.component';
+import { AuthGuard } from './utility/authguard/auth.guard';
 
 const routes: Routes = [
   {path:'',redirectTo:'login',pathMatch:'full'},
@@ -16,8 +17,15 @@ const routes: Routes = [
   },
   {
     path: 'post-login',
-    loadChildren: () => PostLoginModule,
+    children: [
+      {
+        path: 'main',
+        canActivate: [AuthGuard], runGuardsAndResolvers: 'always',
+        loadChildren: () => import('./pages/post-login/post-login.module').then(m => m.PostLoginModule)
+      }
+    ]
   },
+  {path: '**', redirectTo: 'login'}
 ];
 
 @NgModule({

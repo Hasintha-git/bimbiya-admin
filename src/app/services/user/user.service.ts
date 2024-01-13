@@ -87,17 +87,7 @@ export class UserService {
   }
 
   userLogin(object: any) {
-    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.httpClient.post(this.requestUrlPreLogin+ `/login`,object,  { 
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-        'Referrer-Policy': 'no-referrer'
-      }),
-      responseType: 'json'
-    }) .pipe(
-      catchError(this.handleError)
-    );
+    return this.httpClient.post(this.requestUrlPreLogin+`/login`, object, {observe: 'response'});
   }
   
 
