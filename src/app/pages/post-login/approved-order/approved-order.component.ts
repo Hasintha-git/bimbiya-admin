@@ -66,8 +66,7 @@ export class ApprovedOrderComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   prepareReferenceData(): void {
-    const token = sessionStorage.getItem('session');
-    this.orderService.getSearchData(true,token)
+    this.orderService.getSearchData(true)
       .subscribe((response: any) => {
         this.statusList = response.statusList;
       },
@@ -108,8 +107,7 @@ export class ApprovedOrderComponent implements OnInit, AfterViewInit, OnDestroy 
   getList() {
     let searchParamMap = this.commonFunctionService.getDataTableParam(this.paginator, this.sort);
     searchParamMap = this.getSearchString(searchParamMap, this.searchModel);
-    const token = sessionStorage.getItem('session');
-    this.orderService.getList(searchParamMap,token)
+    this.orderService.getList(searchParamMap)
       .subscribe((data: DataTable<OrderResponse>) => {
         this.orderList = data.records;
         console.log("---->",this.orderList)

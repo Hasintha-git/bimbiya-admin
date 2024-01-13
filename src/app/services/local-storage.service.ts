@@ -67,6 +67,7 @@ export class StorageService {
   getSession():string {
     try {
       let session = sessionStorage.getItem('session');
+      console.log("uuuuuuuuuuuuuu",session)
       return session;
     } catch (ex) {
       return null;

@@ -4,10 +4,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SimpleBase } from 'src/app/models/SimpleBase';
-import { StorageService } from 'src/app/models/StorageService';
 import { Bite } from 'src/app/models/bite';
 import { CommonResponse } from 'src/app/models/response/CommonResponse';
 import { ByteService } from 'src/app/services/byte/byte.service';
+import { StorageService } from 'src/app/services/local-storage.service';
 import { NicValidationService } from 'src/app/services/nic-validation/nic-validation.service';
 import { ToastServiceService } from 'src/app/services/toast-service.service';
 import { EXCEED_USER_IMAGE_MAX_SIZE, FILE_MAX_SIZE_10KB, INVALID_USER_IMAGE_TYPE } from 'src/app/utility/messages/messageVarList';
@@ -50,8 +50,9 @@ export class AddProductComponent implements OnInit {
   _prepare() {
     this.thumbnailImage = "assets/images/no_image.png";
     this.initialValidator();
-    const user=this.sessionStorage.getItem("user");
-    this.biteAdd.activeUser = user.user.username;
+    const currentUser = this.sessionStorage.getUser();
+    console.log(currentUser)
+    this.biteAdd.activeUser = currentUser;
   }
 
   initialValidator() {

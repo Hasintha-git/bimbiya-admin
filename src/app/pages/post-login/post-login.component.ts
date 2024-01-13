@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SessionService } from 'src/app/services/session/session-service.service';
 import { ForgetPasswordComponent } from './user-management/forget-password/forget-password.component';
-import { StorageService } from 'src/app/models/StorageService';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { StorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-post-login',
@@ -43,7 +43,7 @@ export class PostLoginComponent implements OnInit {
   }
 
   titleChange(title:string) {
-    let routUrl = title.replace('/post-login/','')
+    let routUrl = title.replace('/post-login/main/base/','')
     const rout = routUrl.split('?')[0];
 
     if (rout=='dashboard') {
@@ -90,9 +90,10 @@ export class PostLoginComponent implements OnInit {
 
   forgetPassword() {
 
-    const user=this.sessionStorage.getItem("user");
+    const currentUser = this.sessionStorage.getUser();
+    console.log(currentUser)
 
-    const dialogRef = this.dialog.open(ForgetPasswordComponent, { data: user.user.id, width: '600px', height: '230px' });
+    const dialogRef = this.dialog.open(ForgetPasswordComponent, { data: currentUser, width: '600px', height: '230px' });
 
     dialogRef.afterClosed().subscribe(result => {
     });

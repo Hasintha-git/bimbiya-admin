@@ -4,10 +4,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SimpleBase } from 'src/app/models/SimpleBase';
-import { StorageService } from 'src/app/models/StorageService';
 import { Ingredient } from 'src/app/models/ingredient';
 import { CommonResponse } from 'src/app/models/response/CommonResponse';
 import { IngredientService } from 'src/app/services/ingredient/ingredient.service';
+import { StorageService } from 'src/app/services/local-storage.service';
 import { NicValidationService } from 'src/app/services/nic-validation/nic-validation.service';
 import { ToastServiceService } from 'src/app/services/toast-service.service';
 
@@ -72,8 +72,10 @@ export class UpdateIngredientComponent implements OnInit {
       (user: any) => {
         this.ingredientAdd = user.data;
             
-    const activeUser=this.sessionStorage.getItem("user");
-    this.ingredientAdd.activeUser = activeUser.user.username;
+    const currentUser = this.sessionStorage.getUser();
+    console.log(currentUser)
+    this.ingredientAdd.activeUser = currentUser;
+    
         this.spinner.hide();
       }, error => {
         this.spinner.hide();

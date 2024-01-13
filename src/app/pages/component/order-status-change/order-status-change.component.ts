@@ -3,10 +3,10 @@ import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { StorageService } from 'src/app/models/StorageService';
 import { Order } from 'src/app/models/order';
 import { CommonResponse } from 'src/app/models/response/CommonResponse';
 import { CommonFunctionService } from 'src/app/services/common-functions/common-function.service';
+import { StorageService } from 'src/app/services/local-storage.service';
 import { OrderService } from 'src/app/services/order/order.service';
 import { ToastServiceService } from 'src/app/services/toast-service.service';
 
@@ -36,15 +36,15 @@ export class OrderStatusChangeComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderModelAdd.orderId = this.data;
-    const currentUser = this.sessionStorage.getItem("user");
-    this.orderModelAdd.activeUser = currentUser.user.username;
+    const currentUser = this.sessionStorage.getUser();
+    console.log(currentUser)
+    this.orderModelAdd.activeUser = currentUser;
   }
 
   onSubmit() {
     this.spinner.show();
     this.orderModelAdd.status=this.orderStatus;
-    const token = sessionStorage.getItem('session');
-      this.orderService.orderStatusUpdate(this.orderModelAdd,token).subscribe(
+      this.orderService.orderStatusUpdate(this.orderModelAdd).subscribe(
         (response: CommonResponse) => {
           this.toastService.successMessage(response.responseDescription);
           this.spinner.hide();

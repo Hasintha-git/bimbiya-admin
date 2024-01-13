@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,8 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { HttpClientModule } from '@angular/common/http';
-import { StorageService } from './models/StorageService';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { NgxSpinnerModule } from "ngx-spinner";
@@ -24,7 +23,18 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule } from 'ngx-toastr';
 import { OrderStatusChangeComponent } from './pages/component/order-status-change/order-status-change.component';
 import { NotFoundComponent } from './pages/component/not-found/not-found.component';
-
+import { Interceptor } from './services/intercept/intercept.service';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { StorageService } from './services/local-storage.service';
+const INTERCEPTORS = [{
+  provide: HTTP_INTERCEPTORS,
+  useClass: Interceptor,
+  multi: true
+},
+  {
+    provide: LocationStrategy, useClass: HashLocationStrategy
+  }
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,13 +68,13 @@ import { NotFoundComponent } from './pages/component/not-found/not-found.compone
       preventDuplicates: true,
       closeButton: true,
       progressBar: true
-    })
+    }),
   ],
   providers: [
+    INTERCEPTORS,
     StorageService,
-    { provide: 'LOCAL_STORAGE', useFactory: () => window.localStorage },
-    { provide: 'SESSION_STORAGE', useFactory: () => window.sessionStorage }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

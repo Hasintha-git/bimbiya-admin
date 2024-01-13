@@ -4,9 +4,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SimpleBase } from 'src/app/models/SimpleBase';
-import { StorageService } from 'src/app/models/StorageService';
 import { CommonResponse } from 'src/app/models/response/CommonResponse';
 import { User } from 'src/app/models/user';
+import { StorageService } from 'src/app/services/local-storage.service';
 import { NicValidationService } from 'src/app/services/nic-validation/nic-validation.service';
 import { ToastServiceService } from 'src/app/services/toast-service.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -58,8 +58,9 @@ export class EditUserComponent implements OnInit {
       (user: any) => {
         this.userModelAdd = user.data;
         
-        const currentUser = this.sessionStorage.getItem("user");
-        this.userModelAdd.activeUserName = currentUser.user.username;
+        const currentUser = this.sessionStorage.getUser();
+        console.log(currentUser)
+        this.userModelAdd.activeUserName = currentUser;
         this.oldModel = JSON.stringify(this.userModelAdd);
         this.spinner.hide();
       }, error => {
