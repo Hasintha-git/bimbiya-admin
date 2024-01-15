@@ -74,7 +74,7 @@ export class UpdateIngredientComponent implements OnInit {
             
     const currentUser = this.sessionStorage.getUser();
     console.log(currentUser)
-    this.ingredientAdd.activeUser = currentUser;
+    this.ingredientAdd.activeUser = "admin";
     
         this.spinner.hide();
       }, error => {

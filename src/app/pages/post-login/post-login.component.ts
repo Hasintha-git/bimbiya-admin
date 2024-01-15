@@ -60,10 +60,10 @@ export class PostLoginComponent implements OnInit {
       this.activeRouter = 'Shipped Order'
     } 
     else if (rout =='bite-section/product') {
-      this.activeRouter = 'Product Section > Product Management'
+      this.activeRouter = 'Product Management'
     }
     else if (rout =='bite-section/ingredient') {
-      this.activeRouter = 'Product Section > Ingredient Management'
+      this.activeRouter = 'Ingredient Management'
     }
     else if (rout =='user-management') {
       this.activeRouter = 'User Management'

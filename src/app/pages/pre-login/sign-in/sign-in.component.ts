@@ -169,8 +169,8 @@ onSubmit() {
     this.routerLink.navigateByUrl('/register')
   }
 
-  get email() {
-    return this.userForm.get('email');
+  get username() {
+    return this.userForm.get('username');
   }
 
   get password() {

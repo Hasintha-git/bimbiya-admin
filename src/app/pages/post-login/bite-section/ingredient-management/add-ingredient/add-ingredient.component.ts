@@ -51,7 +51,7 @@ export class AddIngredientComponent implements OnInit {
     this.initialValidator();
     const currentUser = this.sessionStorage.getUser();
     console.log(currentUser)
-    this.ingredientAdd.activeUser = currentUser;
+    this.ingredientAdd.activeUser =  "admin";
   }
 
   initialValidator() {

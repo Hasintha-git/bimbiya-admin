@@ -2,7 +2,7 @@ export const EXCEED_USER_IMAGE_MAX_SIZE = 'Max size is 500KB.This image size gre
 export const EXCEED_USER_IMAGE_MAX_SIZE_1MB = 'Max size is 1MB.This image size greater than 5MB';
 export const EXCEED_USER_IMAGE_MAX_SIZE_2MB = 'Max size is 2MB.This image size greater than 2MB';
 export const INVALID_USER_IMAGE_TYPE = 'This formate can\'t upload.';
-export const FILE_MAX_SIZE_10KB = 1 * 1024 * 10;
+export const FILE_MAX_SIZE_500KB = 1 * 1024 * 500;
 
 export const CODE_REQUEST_TIMEOUT = '202';
 export const CODE_REQUEST_UNAUTHORIZED = '204';

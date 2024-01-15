@@ -38,7 +38,7 @@ export class OrderStatusChangeComponent implements OnInit {
     this.orderModelAdd.orderId = this.data;
     const currentUser = this.sessionStorage.getUser();
     console.log(currentUser)
-    this.orderModelAdd.activeUser = currentUser;
+    this.orderModelAdd.activeUser = "admin";
   }
 
   onSubmit() {

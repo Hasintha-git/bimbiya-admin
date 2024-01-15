@@ -46,7 +46,7 @@ export class ForgetPasswordComponent implements OnInit {
     this.initialValidator();
     const currentUser = this.sessionStorage.getUser();
     console.log(currentUser)
-    this.userModelAdd.activeUserName = currentUser;
+    this.userModelAdd.activeUserName = "admin";
   }
 
   initialValidator() {

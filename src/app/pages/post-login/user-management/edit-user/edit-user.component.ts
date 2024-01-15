@@ -60,7 +60,7 @@ export class EditUserComponent implements OnInit {
         
         const currentUser = this.sessionStorage.getUser();
         console.log(currentUser)
-        this.userModelAdd.activeUserName = currentUser;
+        this.userModelAdd.activeUserName = "admin";
         this.oldModel = JSON.stringify(this.userModelAdd);
         this.spinner.hide();
       }, error => {

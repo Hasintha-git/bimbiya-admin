@@ -14,7 +14,7 @@ export class ByteService {
   requestUrlPreLogin: string;
 
   constructor(public httpClient: HttpClient,public commonFunctionService: CommonFunctionService) { 
-    this.requestUrl = `${getEndpoint(SECURE)}/byte-package/v1/admin-byte`;
+    this.requestUrl = `${getEndpoint(SECURE)}/product/v1`;
     this.requestUrlPreLogin = `${getEndpoint(SECURE)}/auth`;
   }
 
@@ -40,17 +40,17 @@ export class ByteService {
 
   
   delete(id: any): Observable<any> {
-    return this.httpClient.delete(this.requestUrl+ `/`+ `${id}`, {
+    return this.httpClient.delete(this.requestUrl+ `/manage`+ `${id}`, {
       responseType: 'json'
     });
   }
 
   add(object: any): Observable<any> {
-    return this.httpClient.post(this.requestUrl, object, { responseType: 'json' });
+    return this.httpClient.post(this.requestUrl+ `/manage`, object, { responseType: 'json' });
   }
 
   update(object: any): Observable<any> {
-    return this.httpClient.put(this.requestUrl, object, { responseType: 'json' });
+    return this.httpClient.put(this.requestUrl+ `/manage`, object, { responseType: 'json' });
   }
 
 
