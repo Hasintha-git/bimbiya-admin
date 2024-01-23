@@ -8,7 +8,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ToastServiceService } from 'src/app/services/toast-service.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { BrowserData } from 'src/app/models/BrowserData';
-import { CODE_REQUEST_INVALID_USERSESSION, CODE_REQUEST_TIMEOUT, CODE_REQUEST_UNAUTHORIZED, GATEWAY_TIMEOUT_ERROR_CODE, GLOBAL_SUCCESS_MESSAGE_PASSWORD_CHANGE, INTERNAL_SERVER_ERROR_CODE, NOT_FOUND_ERROR_CODE, UNABLE_TO_SERVE_REQUEST_DES } from 'src/app/utility/messages/messageVarList';
+import { CODE_REQUEST_INVALID_USERSESSION, CODE_REQUEST_TIMEOUT, CODE_REQUEST_UNAUTHORIZED, GATEWAY_TIMEOUT_ERROR_CODE, GLOBAL_SUCCESS_MESSAGE_PASSWORD_CHANGE, INTERNAL_SERVER_ERROR_CODE, NOT_FOUND_ERROR_CODE, PASSWORD_WRONG, UNABLE_TO_SERVE_REQUEST_DES, UNAUTH_ERROR_CODE, USERNAME_WRONG } from 'src/app/utility/messages/messageVarList';
 import { HttpResponse } from '@angular/common/http';
 import { LoginService } from 'src/app/services/LoginService/login.service';
 import { StorageService } from 'src/app/services/local-storage.service';
@@ -90,14 +90,22 @@ onSubmit() {
           this.authService.logIn();
         },
         (        error: { status: number; error: { [x: string]: string; }; }) => {
-          if (error.status === GATEWAY_TIMEOUT_ERROR_CODE || error.status === INTERNAL_SERVER_ERROR_CODE
-            || error.status === NOT_FOUND_ERROR_CODE) {
+          if (error.status === GATEWAY_TIMEOUT_ERROR_CODE || error.status === INTERNAL_SERVER_ERROR_CODE) {
             this.errorMessage = UNABLE_TO_SERVE_REQUEST_DES;
             this.spinner.hide();
-          } else {
+          }else if(error.status === NOT_FOUND_ERROR_CODE) {
+            this.errorMessage = USERNAME_WRONG;
+            this.spinner.hide();
+          }else if(error.status === UNAUTH_ERROR_CODE) {
+            this.errorMessage = PASSWORD_WRONG;
+            this.spinner.hide();
+          }
+           else {
             this.errorMessage = error.error['message'];
             this.spinner.hide();
           }
+          
+      this.toastr.errorMessage(this.errorMessage);
         }
       );
     } else {

@@ -95,7 +95,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
         })
       )
       .subscribe();
-    merge(this.paginator.page, this.sort.sortChange)
+    merge(this.paginator.page)
       .pipe(
         tap(() => this.getList())
       )

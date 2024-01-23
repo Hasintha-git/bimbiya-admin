@@ -85,7 +85,7 @@ export class PendingOrderComponent implements OnInit, AfterViewInit, OnDestroy {
         })
       )
       .subscribe();
-    merge(this.paginator.page, this.sort.sortChange)
+    merge(this.paginator.page)
       .pipe(
         tap(() => this.getList())
       )

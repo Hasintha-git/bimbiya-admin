@@ -79,6 +79,7 @@ export class IngredientManagementComponent implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit() {
+    console.log("lllllllllllllll")
     this.dataSource.counter$
       .pipe(
         tap((count) => {
@@ -86,7 +87,7 @@ export class IngredientManagementComponent implements OnInit,AfterViewInit {
         })
       )
       .subscribe();
-    merge(this.paginator.page, this.sort.sortChange)
+    merge(this.paginator.page)
       .pipe(
         tap(() => this.getList())
       )
@@ -94,6 +95,7 @@ export class IngredientManagementComponent implements OnInit,AfterViewInit {
   }
 
   initialDataLoader(): void {
+    console.log("mmmmmmmmmmmmmm")
     this.initialDataTable();
     this.dataSource = new Commondatasource();
     this.dataSource.counter$
@@ -107,6 +109,7 @@ export class IngredientManagementComponent implements OnInit,AfterViewInit {
   }
 
   getList() {
+    this.spinner.show();
     let searchParamMap = this.commonFunctionService.getDataTableParam(this.paginator, this.sort);
     if (this.isSearch) {
       searchParamMap = this.getSearchString(searchParamMap, this.searchModel);
