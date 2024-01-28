@@ -9,7 +9,7 @@
             <div class="input-fields">
                 <mat-form-field class="min-field" appearance="outline">
                     <mat-label>Product Name</mat-label>
-                    <input matInput [formControl]="mealName" [maxlength]="8" autoComplete='off'
+                    <input matInput [formControl]="mealName" [maxlength]="24" autoComplete='off'
                         [(ngModel)]="biteAdd.mealName" appRegexFormate regexType="letter_num" required>
                     <mat-error *ngIf="mealName.hasError('required')">Product name cannot be
                         empty
