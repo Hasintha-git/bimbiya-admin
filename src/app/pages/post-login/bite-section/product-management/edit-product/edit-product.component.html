@@ -68,10 +68,10 @@
                 </mat-form-field>
             </div>
 
-            <div class="input-fields">
-                <mat-form-field class="min-field" appearance="outline">
+            <div class="input-fields" *ngIf="isIngredientReq">
+                <mat-form-field class="min-field" appearance="outline" >
                     <mat-label>Ingredients</mat-label>
-                    <mat-select [formControl]="ingredientList" required multiple [(ngModel)]="biteAdd.ingredientList">
+                    <mat-select [formControl]="ingredientList" required="{{isIngredientReq}}"  multiple [(ngModel)]="biteAdd.ingredientList">
                         <mat-option *ngFor="let st of ingredientsList" [value]="st.id">
                             {{st.description}}
                         </mat-option>

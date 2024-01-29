@@ -42,7 +42,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
   public isSearch: boolean;
   public access: any;
 
-  displayedColumns: string[] = ['view', 'mealName', 'description', 'price', 'status','lastUpdatedUser','lastUpdatedTime','action'];
+  displayedColumns: string[] = ['view', 'mealName', 'price', 'status','lastUpdatedUser','lastUpdatedTime','action'];
 
   constructor(
     public dialog: MatDialog,
@@ -116,6 +116,7 @@ export class ProductManagementComponent implements OnInit, AfterViewInit, OnDest
   }
 
   getList() {
+    this.spinner.show();
     let searchParamMap = this.commonFunctionService.getDataTableParam(this.paginator, this.sort);
     if (this.isSearch) {
       searchParamMap = this.getSearchString(searchParamMap, this.searchModel);

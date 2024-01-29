@@ -30,6 +30,7 @@ export class AddProductComponent implements OnInit {
   imageFile: File = null;
   isEmptyThumbnail = true;
   thumbnailImage:any;
+  isIngredientReq: boolean = false;
 
   constructor(
     private biteService: ByteService,
@@ -52,7 +53,7 @@ export class AddProductComponent implements OnInit {
     this.initialValidator();
     const currentUser = this.sessionStorage.getUser();
     console.log(currentUser)
-    this.biteAdd.activeUser = currentUser;
+    this.biteAdd.activeUser = "admin";
   }
 
   initialValidator() {
@@ -69,9 +70,7 @@ export class AddProductComponent implements OnInit {
       price: this.formBuilder.control('', [
         Validators.required
       ]),
-      ingredientList: this.formBuilder.control('', [
-        // Validators.required
-      ]),
+      ingredientList: this.formBuilder.control(''),
       status: this.formBuilder.control('', [
         Validators.required
       ]),
@@ -79,6 +78,23 @@ export class AddProductComponent implements OnInit {
         Validators.required
       ]),
     });
+
+        // Add a listener to 'productCategory' changes
+        this.productAdd.get('productCategory')?.valueChanges.subscribe((category) => {
+          const ingredientListControl = this.productAdd.get('ingredientList');
+  
+          if (category === 'BITE') {
+            this.isIngredientReq = true;
+              // If productCategory is 'BITE', set 'Validators.required'
+              ingredientListControl?.setValidators([Validators.required]);
+          } else {
+              // Otherwise, remove all validators
+              ingredientListControl?.clearValidators();
+          }
+  
+          // Trigger validation update
+          ingredientListControl?.updateValueAndValidity();
+      });
 
   }
 
@@ -158,7 +174,7 @@ export class AddProductComponent implements OnInit {
             const aspectRatio = width / height;
             
             // Define acceptable aspect ratio range.
-            const minAspectRatio = 1.76;
+            const minAspectRatio = 1.30;
             const maxAspectRatio = 1.78;            
   
             if (aspectRatio >= minAspectRatio && aspectRatio <= maxAspectRatio) {

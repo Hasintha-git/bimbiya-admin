@@ -30,6 +30,7 @@ export class EditProductComponent implements OnInit {
   imageFile: File = null;
   isEmptyThumbnail = true;
   thumbnailImage:any;
+  isIngredientReq: boolean = false;
 
   constructor(private dialogRef: MatDialogRef<EditProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -69,31 +70,50 @@ export class EditProductComponent implements OnInit {
       price: this.formBuilder.control('', [
         Validators.required
       ]),
-      ingredientList: this.formBuilder.control('', [
-        // Validators.required
-      ]),
+      ingredientList: this.formBuilder.control(''),
       status: this.formBuilder.control('', [
         Validators.required
       ]),
       productCategory: this.formBuilder.control({ value: '', disabled: true }, []),
     });
 
+     // Add a listener to 'productCategory' changes
+     this.productAdd.get('productCategory')?.valueChanges.subscribe((category) => {
+      const ingredientListControl = this.productAdd.get('ingredientList');
+
+      if (category === 'BITE') {
+        this.isIngredientReq = true;
+          // If productCategory is 'BITE', set 'Validators.required'
+          ingredientListControl?.setValidators([Validators.required]);
+      } else {
+          // Otherwise, remove all validators
+          ingredientListControl?.clearValidators();
+      }
+
+      // Trigger validation update
+      ingredientListControl?.updateValueAndValidity();
+  });
   }
 
   
   findById() {
+    this.spinner.show();
     console.log(this.biteAdd)
     this.biteService.get(this.biteAdd).subscribe(
       (bite: any) => {
         this.biteAdd = bite.data;
+        if(this.biteAdd.productCategory == "BITE") {
+          this.isIngredientReq = true;
+        }
         this.thumbnailImage = this.biteAdd.img;
                     
         const currentUser = this.sessionStorage.getUser();
         console.log(currentUser)
-    this.biteAdd.activeUser = "admin";
+        this.biteAdd.activeUser = "admin";
+        this.spinner.hide();
       }, error => {
-          this.toastService.errorMessage(error.error['errorDescription']);
-        
+        this.spinner.hide();
+        this.toastService.errorMessage(error.error['errorDescription']);
       }
     );
   }
@@ -177,7 +197,7 @@ export class EditProductComponent implements OnInit {
             const aspectRatio = width / height;
             
             // Define acceptable aspect ratio range.
-            const minAspectRatio = 1.76;
+            const minAspectRatio = 1.30;
             const maxAspectRatio = 1.78;            
   
             if (aspectRatio >= minAspectRatio && aspectRatio <= maxAspectRatio) {

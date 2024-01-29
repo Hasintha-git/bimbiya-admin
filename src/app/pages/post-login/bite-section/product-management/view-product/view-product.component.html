@@ -15,14 +15,18 @@
         <label for="mealName" class="label">Product Name</label>
         <p title="{{biteModel.mealName }}" class="data">{{biteModel.mealName }}</p>
       </div>
-      <div class="view-data">
-        <label for="description" class="label">Description</label>
-        <p title="{{biteModel.description }}" class="data">{{biteModel.description }}</p>
-      </div>
+      
       <div class="view-data">
         <label for="price" class="label">Price</label>
         <p title="{{biteModel.price }}" class="data">{{biteModel.price}}</p>
       </div>
+
+      <div class="data-row">
+      <div class="view-data-max">
+        <label for="description" class="label">Description</label>
+        <p title="{{biteModel.description }}" class="data">{{biteModel.description }}</p>
+      </div>
+    </div>
       <div class="view-data">
         <label for="portion" class="label">Portion</label>
         <p title="{{biteModel.portionDescription}}" class="data">{{biteModel.portion}}</p>
@@ -50,6 +54,10 @@
       <div class="view-data">
         <label for="lastUpdatedTime" class="label">Last Updated Date & Time</label>
         <p title="{{biteModel.lastUpdatedTime }}" class="data">{{biteModel.lastUpdatedTime| date:"yyyy/MM/dd 'at' h:mm a"  }}</p>
+      </div>
+      <div class="view-data" *ngIf="biteModel.productCategory == 'BITE'">
+        <label for="lastUpdatedTime" class="label">Ingredient List</label>
+        <p title="{{pc}}" class="data" *ngFor="let pc of biteModel.ingredientNameList">{{pc }}</p>
       </div>
     </div>
   </div>

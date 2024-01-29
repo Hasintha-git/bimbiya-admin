@@ -9,6 +9,7 @@ export class Bite {
   status: string;
   statusDescription: string;
   ingredientList: number[];
+  ingredientNameList: string[];
   img: string;
   createdUser:string;
   lastUpdatedUser:string;
