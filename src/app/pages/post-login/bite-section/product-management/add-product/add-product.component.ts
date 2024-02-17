@@ -173,9 +173,10 @@ export class AddProductComponent implements OnInit {
             // Check aspect ratio.
             const aspectRatio = width / height;
             
+            console.log(aspectRatio)
             // Define acceptable aspect ratio range.
             const minAspectRatio = 1.30;
-            const maxAspectRatio = 1.78;            
+            const maxAspectRatio = 1.85;            
   
             if (aspectRatio >= minAspectRatio && aspectRatio <= maxAspectRatio) {
               // If both size and aspect ratio are valid, proceed.

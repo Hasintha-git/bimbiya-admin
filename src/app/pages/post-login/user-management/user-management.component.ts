@@ -38,6 +38,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
   public userList: User[];
   public searchModel: User;
   public statusList: SimpleBase[];
+  public districtList: SimpleBase[];
   public userRoleList: SimpleBase[];
   public searchReferenceData: Map<string, Object[]>;
   public isSearch: boolean;
@@ -79,6 +80,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
     this.userService.getSearchData(true)
       .subscribe((response: any) => {
         this.statusList = response.statusList;
+        this.districtList = response.districtList;
         this.userRoleList = response.userRoleList;
       },
       error => {
@@ -177,6 +179,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
   add() {
     const dialogRef = this.dialog.open(AddUserComponent);
     dialogRef.componentInstance.statusList = this.statusList;
+    dialogRef.componentInstance.districtList = this.districtList;
     dialogRef.componentInstance.userRoleList = this.userRoleList;
     dialogRef.afterClosed().subscribe(result => {
       this.resetUserSearch();
@@ -186,6 +189,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit, OnDestroy
   edit(id: any) {
     const dialogRef = this.dialog.open(EditUserComponent, { data: id });
     dialogRef.componentInstance.statusList = this.statusList;
+    dialogRef.componentInstance.districtList = this.districtList;
     dialogRef.componentInstance.userRoleList = this.userRoleList;
     dialogRef.afterClosed().subscribe(result => {
       this.resetUserSearch();

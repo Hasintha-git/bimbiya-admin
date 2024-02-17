@@ -13,19 +13,17 @@ export class Interceptor implements HttpInterceptor  {
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const authToken = this.storageService.getSession(); // Get the token from your storage service
+    const authToken = this.storageService.getSession(); 
 
     
     if (authToken) {
       // Clone the request and add the 'Authorization' header
       request = request.clone({
         setHeaders: {
-          // 'Authorization': `Bearer ${authToken}`
-          'Authorization': `${authToken}`
+          'Authorization': `Bearer ${authToken}`
         }
       });
     }
-    console.log("############",request)
     return next.handle(request);
   }
 }

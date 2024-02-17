@@ -15,7 +15,8 @@ export class User {
   lastUpdatedUser:string;
   createdTime:Date;
   lastUpdatedTime:Date;
-
+  district:string;
+  districtDescription:string;
   userRole: string;
   userRoleDescription:string;
 

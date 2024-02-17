@@ -4,6 +4,7 @@
         <div class="btn-close" (click)="closeDialog()">
         </div>
         <div class="title-content-devider"></div>
+        <div class="dialog-content modal-content">
         <div class="dialog-input-fields">
             <div class="input-fields">
                 <mat-form-field class="min-field" appearance="outline">
@@ -84,6 +85,19 @@
             </div>
 
 
+            <div class="input-fields">
+                <mat-form-field class="min-field" appearance="outline">
+                    <mat-label>District</mat-label>
+                    <mat-select [formControl]="district" required [(ngModel)]="userModelAdd.district">
+                        <mat-option [value]="">Select District</mat-option>
+                        <mat-option *ngFor="let st of districtList" [value]="st.code">
+                            {{st.description}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="district.hasError('required')">District cannot be empty
+                    </mat-error>
+                </mat-form-field>
+            </div>
 
 
 
@@ -133,6 +147,7 @@
 
             
 
+        </div>
         </div>
         <div class="dialog-buttons">
             <button type="submit" mat-button class="custom-button primary">Add

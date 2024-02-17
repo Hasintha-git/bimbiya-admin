@@ -75,18 +75,24 @@ onSubmit() {
     if (this.userForm.valid) {
       this.spinner.show();
       this.loginService.login(this.signInModel).subscribe(
-        (response: HttpResponse<any>) => {
-          console.log('Response Headers:', response.headers.keys()); 
-          const authorizationHeader = response.headers.get('Authorization');
-          const refreshTokenHeader = response.headers.get('Refresh-Token');
+        (response:any) => {
+          console.log(response)
+          const authorizationHeader = response.body.body.data.accessToken;
+          const refreshTokenHeader = response.body.body.data.refreshToken;
           
-          // if (authorizationHeader) {
+          console.log('Received Token:', refreshTokenHeader);
+          if (authorizationHeader) {
             this.sessionStorage.setSession(authorizationHeader);
-          // }
-      
-          // if (refreshTokenHeader) {
+          }
+          
+          if (refreshTokenHeader) {
             this.sessionStorage.setRefreshToken(refreshTokenHeader);
-          // }
+          }
+          
+          if (response.body.body.data.userName) {
+            this.sessionStorage.setUser(response.body.body.data.userName);
+          }
+          this.spinner.hide();
           this.authService.logIn();
         },
         (        error: { status: number; error: { [x: string]: string; }; }) => {

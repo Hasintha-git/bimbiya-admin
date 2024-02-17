@@ -21,6 +21,7 @@ export class AddUserComponent implements OnInit {
   userAdd: FormGroup;
   userModelAdd = new User();
   public statusList: SimpleBase[];
+  public districtList: SimpleBase[];
   public userRoleList: SimpleBase[];
   maxDate = new Date();
 
@@ -72,6 +73,9 @@ export class AddUserComponent implements OnInit {
       mobile: this.formBuilder.control('', [
         Validators.required,
         Validators.pattern(/^-?([0-9]\d*){10}?$/),
+      ]),
+      district: this.formBuilder.control('', [
+        Validators.required
       ]),
       status: this.formBuilder.control('', [
         Validators.required
@@ -222,6 +226,9 @@ export class AddUserComponent implements OnInit {
     return this.userAdd.get('dateOfBirth');
   }
 
+  get district() {
+    return this.userAdd.get('district');
+  }
 
   closeDialog() {
     this.dialogRef.close();
