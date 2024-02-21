@@ -28,7 +28,7 @@ export class ViewOrderComponent implements OnInit {
   public oderResponseModel = new OrderResponse();
   public dataSource: MatTableDataSource<any>;
 
-  displayedColumns: string[] = [ 'orderDetailId', 'productName', 'quantity', 'unitPrice', 'subTotal', 'potion'];
+  displayedColumns: string[] = [ 'orderDetailId', 'productName','personCount', 'quantity', 'unitPrice', 'subTotal', 'potion'];
 
   constructor(private dialogRef: MatDialogRef<ViewOrderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,

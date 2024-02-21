@@ -8,8 +8,9 @@ export class OrderResponse {
     status: string;
     createdUser: string;
     lastUpdatedUser: string;
-    createdTime: Date;
     lastUpdatedTime: Date;
+    createdTime: Date;
+    scheduleTime: string;
 
     username: string;
     fullName: string;

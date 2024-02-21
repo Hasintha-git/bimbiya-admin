@@ -6,5 +6,6 @@ export class OrderDetailResponse {
     unitPrice: string;
     subTotal: string;
     potion: string;
+    personCount:number;
 }
   
