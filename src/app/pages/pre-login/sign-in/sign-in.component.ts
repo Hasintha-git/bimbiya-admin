@@ -74,44 +74,9 @@ onSubmit() {
   this.errorMessage = null;
     if (this.userForm.valid) {
       this.spinner.show();
-      this.loginService.login(this.signInModel).subscribe(
-        (response:any) => {
-          console.log(response)
-          const authorizationHeader = response.body.body.data.accessToken;
-          const refreshTokenHeader = response.body.body.data.refreshToken;
-          
-          console.log('Received Token:', refreshTokenHeader);
-          if (authorizationHeader) {
-            this.sessionStorage.setSession(authorizationHeader);
-          }
-          
-          if (refreshTokenHeader) {
-            this.sessionStorage.setRefreshToken(refreshTokenHeader);
-          }
-          
-          if (response.body.body.data.userName) {
-            this.sessionStorage.setUser(response.body.body.data.userName);
-          }
-          this.spinner.hide();
-          this.authService.logIn();
-        },
-        (        error: { status: number; error: { [x: string]: string; }; }) => {
-          if (error.status === GATEWAY_TIMEOUT_ERROR_CODE || error.status === INTERNAL_SERVER_ERROR_CODE) {
-            this.errorMessage = UNABLE_TO_SERVE_REQUEST_DES;
-            this.spinner.hide();
-          }else if(error.status === NOT_FOUND_ERROR_CODE) {
-            this.errorMessage = USERNAME_WRONG;
-            this.spinner.hide();
-          }else if(error.status === UNAUTH_ERROR_CODE) {
-            this.errorMessage = PASSWORD_WRONG;
-            this.spinner.hide();
-          }
-           else {
-            this.errorMessage = error.error['message'];
-            this.spinner.hide();
-          }
-          
-      this.toastr.errorMessage(this.errorMessage);
+      this.loginService.login(this.signInModel).subscribe( {
+        next: (response: HttpResponse<any>) => this.handleSuccess(response),
+        error: (error: any) => this.handleError(error)
         }
       );
     } else {
@@ -120,6 +85,37 @@ onSubmit() {
       this.mandatoryValidation(this.userForm)
     }
   }
+
+  private handleSuccess(response: HttpResponse<any>): void {
+    //token set for session
+    this.sessionStorage.setSession(response.headers.get('token'));
+    this.sessionStorage.setRefreshToken(response.headers.get('refresh_token'));
+
+    //user details set for session
+    this.sessionStorage.setUser(response.body['user']);
+    
+    this.spinner.hide();
+    this.authService.logIn();
+  }
+
+  private handleError(error: any): void {
+    const isKnownError = [GATEWAY_TIMEOUT_ERROR_CODE, INTERNAL_SERVER_ERROR_CODE, NOT_FOUND_ERROR_CODE].includes(error.status);
+
+    this.errorMessage = isKnownError ? UNABLE_TO_SERVE_REQUEST_DES : this.extractErrorMessage(error);
+    this.spinner.hide();
+  }
+
+  private extractErrorMessage(error: any): string {
+    // Fallback message if none provided
+    const DEFAULT_ERROR_MESSAGE = 'An unexpected error occurred. Please try again later.';
+
+    if (error.error && typeof error.error === 'object' && 'message' in error.error) {
+      return error.error.message;
+    }
+
+    return DEFAULT_ERROR_MESSAGE;
+  }
+
 
   checkIfErrorCodeIsPresent() {
     let errorVal = '';

@@ -106,7 +106,7 @@ export class EditProductComponent implements OnInit {
           this.isIngredientReq = true;
         }
         this.thumbnailImage = this.biteAdd.img;
-                    
+        console.log(this.thumbnailImage); 
         const currentUser = this.sessionStorage.getUser();
         console.log(currentUser)
         this.biteAdd.activeUser = "admin";

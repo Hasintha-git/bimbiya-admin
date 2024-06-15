@@ -10,7 +10,7 @@ import { ByteService } from 'src/app/services/byte/byte.service';
 import { StorageService } from 'src/app/services/local-storage.service';
 import { NicValidationService } from 'src/app/services/nic-validation/nic-validation.service';
 import { ToastServiceService } from 'src/app/services/toast-service.service';
-import { EXCEED_USER_IMAGE_MAX_SIZE, FILE_MAX_SIZE_500KB, INVALID_USER_IMAGE_TYPE } from 'src/app/utility/messages/messageVarList';
+import { EXCEED_USER_IMAGE_MAX_SIZE, FILE_MAX_SIZE_100KB, FILE_MAX_SIZE_500KB, INVALID_USER_IMAGE_TYPE } from 'src/app/utility/messages/messageVarList';
 
 @Component({
   selector: 'app-add-product',
@@ -52,7 +52,6 @@ export class AddProductComponent implements OnInit {
     this.thumbnailImage = "assets/images/no_image.png";
     this.initialValidator();
     const currentUser = this.sessionStorage.getUser();
-    console.log(currentUser)
     this.biteAdd.activeUser = "admin";
   }
 
@@ -160,7 +159,7 @@ export class AddProductComponent implements OnInit {
     // Check if the file is an image (JPEG, JPG, or PNG).
     if (image && (image.type === 'image/jpeg' || image.type === 'image/jpg' || image.type === 'image/png')) {
       // Check the file size.
-      if (image.size < FILE_MAX_SIZE_500KB) {
+      if (image.size < FILE_MAX_SIZE_100KB) {
         const reader = new FileReader();
         reader.onload = (event: any) => {
           const imageElement = new Image();
