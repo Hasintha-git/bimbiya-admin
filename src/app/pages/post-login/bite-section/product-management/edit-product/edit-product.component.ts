@@ -31,6 +31,7 @@ export class EditProductComponent implements OnInit {
   isEmptyThumbnail = true;
   thumbnailImage:any;
   isIngredientReq: boolean = false;
+  showPortionField: boolean = false;
 
   constructor(private dialogRef: MatDialogRef<EditProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -74,27 +75,42 @@ export class EditProductComponent implements OnInit {
       status: this.formBuilder.control('', [
         Validators.required
       ]),
-      productCategory: this.formBuilder.control({ value: '', disabled: true }, []),
+      productCategory: this.formBuilder.control('', [
+        Validators.required
+      ]),
     });
-
-     // Add a listener to 'productCategory' changes
-     this.productAdd.get('productCategory')?.valueChanges.subscribe((category) => {
+  
+    // Add a listener to 'productCategory' changes
+    this.productAdd.get('productCategory')?.valueChanges.subscribe((category) => {
       const ingredientListControl = this.productAdd.get('ingredientList');
-
-      if (category === 'BITE') {
-        this.isIngredientReq = true;
+      const portionControl = this.productAdd.get('portion');
+  
+      if (category === 'BEVERAGES') {
+        this.isIngredientReq = false;
+        this.showPortionField = false;
+        // Hide and make ingredientList optional
+        ingredientListControl?.clearValidators();
+        portionControl?.clearValidators();
+      } else {
+        this.showPortionField = true;
+        portionControl?.setValidators([Validators.required]);
+        if (category === 'BITE') {
+          this.isIngredientReq = true;
           // If productCategory is 'BITE', set 'Validators.required'
           ingredientListControl?.setValidators([Validators.required]);
-      } else {
-          // Otherwise, remove all validators
+        } else {
+          this.isIngredientReq = false;
+          // Otherwise, remove all validators from ingredientList
           ingredientListControl?.clearValidators();
+        }
       }
-
+  
       // Trigger validation update
       ingredientListControl?.updateValueAndValidity();
-  });
+      portionControl?.updateValueAndValidity();
+    });
   }
-
+  
   
   findById() {
     this.spinner.show();
@@ -104,6 +120,7 @@ export class EditProductComponent implements OnInit {
         this.biteAdd = bite.data;
         if(this.biteAdd.productCategory == "BITE") {
           this.isIngredientReq = true;
+          this.showPortionField = true;
         }
         this.thumbnailImage = this.biteAdd.img;
         console.log(this.thumbnailImage); 

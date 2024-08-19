@@ -41,8 +41,20 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-
+              
             <div class="input-fields">
+                <mat-form-field class="min-field" appearance="outline">
+                    <mat-label>Product Category</mat-label>
+                    <mat-select [formControl]="productCategory" required [(ngModel)]="biteAdd.productCategory">
+                        <mat-option *ngFor="let st of productCatList" [value]="st.code">
+                            {{st.description}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            
+            <div class="input-fields" *ngIf="showPortionField">
                 <mat-form-field class="min-field" appearance="outline">
                     <mat-label>Portion</mat-label>
                     <mat-select [formControl]="portion" required [(ngModel)]="biteAdd.portion">
@@ -56,18 +68,6 @@
                 </mat-form-field>
             </div>
 
-              
-            <div class="input-fields">
-                <mat-form-field class="min-field" appearance="outline">
-                    <mat-label>Product Category</mat-label>
-                    <mat-select [formControl]="productCategory" required [(ngModel)]="biteAdd.productCategory">
-                        <mat-option *ngFor="let st of productCatList" [value]="st.code">
-                            {{st.description}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
             <div class="input-fields" *ngIf="isIngredientReq">
                 <mat-form-field class="min-field" appearance="outline" >
                     <mat-label>Ingredients</mat-label>
@@ -76,8 +76,7 @@
                             {{st.description}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="portion.hasError('required')">Portion cannot be empty
-                    </mat-error>
+                    <mat-error *ngIf="ingredientList.hasError('required')">Ingredients cannot be empty</mat-error>
                 </mat-form-field>
             </div>
 

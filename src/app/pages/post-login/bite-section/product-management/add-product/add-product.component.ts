@@ -26,6 +26,8 @@ export class AddProductComponent implements OnInit {
   public ingredientsList: SimpleBase[];
   public productCatList: SimpleBase[];
   maxDate = new Date();
+  public isPortionVisible: boolean;
+  public showPortionField: boolean;
 
   imageFile: File = null;
   isEmptyThumbnail = true;
@@ -57,46 +59,61 @@ export class AddProductComponent implements OnInit {
 
   initialValidator() {
     this.productAdd = this.formBuilder.group({
-      mealName: this.formBuilder.control('', [
-        Validators.required
-      ]),
-      description: this.formBuilder.control('', [
-        Validators.required
-      ]),
-      portion: this.formBuilder.control('', [
-        Validators.required
-      ]),
-      price: this.formBuilder.control('', [
-        Validators.required
-      ]),
-      ingredientList: this.formBuilder.control(''),
-      status: this.formBuilder.control('', [
-        Validators.required
-      ]),
-      productCategory: this.formBuilder.control('', [
-        Validators.required
-      ]),
+      mealName: this.formBuilder.control('', [Validators.required]),
+      description: this.formBuilder.control('', [Validators.required]),
+      portion: this.formBuilder.control('', [Validators.required]),
+      price: this.formBuilder.control('', [Validators.required]),
+      ingredientList: this.formBuilder.control(''), // Default optional
+      status: this.formBuilder.control('', [Validators.required]),
+      productCategory: this.formBuilder.control('', [Validators.required]),
     });
-
-        // Add a listener to 'productCategory' changes
-        this.productAdd.get('productCategory')?.valueChanges.subscribe((category) => {
-          const ingredientListControl = this.productAdd.get('ingredientList');
   
-          if (category === 'BITE') {
-            this.isIngredientReq = true;
-              // If productCategory is 'BITE', set 'Validators.required'
-              ingredientListControl?.setValidators([Validators.required]);
-          } else {
-              // Otherwise, remove all validators
-              ingredientListControl?.clearValidators();
-          }
+    // Add a listener to 'productCategory' changes
+    this.productAdd.get('productCategory')?.valueChanges.subscribe((category) => {
+      const portionControl = this.productAdd.get('portion');
+      const ingredientListControl = this.productAdd.get('ingredientList');
   
-          // Trigger validation update
-          ingredientListControl?.updateValueAndValidity();
-      });
-
+      if (category === 'BEVERAGES') {
+        // Hide and remove 'Validators.required' from 'portion' and 'ingredientList'
+        portionControl?.clearValidators();
+        portionControl?.updateValueAndValidity();
+        this.isPortionVisible = false;
+        this.isIngredientReq = false; // Hide and make ingredients optional
+      } else {
+        // Show and set 'Validators.required' for 'portion'
+        portionControl?.setValidators([Validators.required]);
+        portionControl?.updateValueAndValidity();
+        this.isPortionVisible = true;
+  
+        if (category === 'BITE') {
+          // Set 'Validators.required' for 'ingredientList' when productCategory is 'BITE'
+          ingredientListControl?.setValidators([Validators.required]);
+          this.isIngredientReq = true;
+        } else {
+          // Remove all validators for 'ingredientList' otherwise
+          ingredientListControl?.clearValidators();
+          this.isIngredientReq = false;
+        }
+      }
+  
+      // Trigger validation update
+      ingredientListControl?.updateValueAndValidity();
+    });
   }
-
+  
+  
+  onCategoryChange(selectedCategory: string) {
+    if (selectedCategory === 'BEVERAGES') {
+      this.showPortionField = false;
+      this.isIngredientReq = false;
+      this.productAdd.get('portion')?.clearValidators();
+    } else {
+      this.showPortionField = true;
+      this.isIngredientReq = true;
+      this.productAdd.get('portion')?.setValidators([Validators.required]);
+    }
+    this.productAdd.get('portion')?.updateValueAndValidity();
+  }
   mandatoryValidation(formGroup: FormGroup) {
     for (const key in formGroup.controls) {
       if (formGroup.controls.hasOwnProperty(key)) {
@@ -112,6 +129,10 @@ export class AddProductComponent implements OnInit {
 
   reset() {
     this.productAdd.reset();
+    this.isEmptyThumbnail = true;
+    this.isPortionVisible = false;
+    this.showPortionField = false;
+    this.isIngredientReq = false;
   }
 
   onSubmit() {
@@ -159,7 +180,7 @@ export class AddProductComponent implements OnInit {
     // Check if the file is an image (JPEG, JPG, or PNG).
     if (image && (image.type === 'image/jpeg' || image.type === 'image/jpg' || image.type === 'image/png')) {
       // Check the file size.
-      if (image.size < FILE_MAX_SIZE_100KB) {
+      if (image.size < FILE_MAX_SIZE_500KB) {
         const reader = new FileReader();
         reader.onload = (event: any) => {
           const imageElement = new Image();
