@@ -29,7 +29,7 @@
     font-family: 'Hind Siliguri', sans-serif;
     text-align: left;
     padding: 5px;
-    color: gray;
+    // color: gray;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -40,12 +40,12 @@
 
 #sidenav .menu-item:hover,
 #sidenav .menu-item:focus {
-    background: #D0F5FC;
+    background: #1877F2;
     box-shadow: inset 6.5em 0 0 0 var(--hover);
-    color: #0096FE;
-    width: 95% !important;
-    border-top-right-radius: 50px !important;
-    border-bottom-right-radius: 50px !important;
+    // color: #0096FE;
+    width: 100% !important;
+    // border-top-right-radius: 50px !important;
+    // border-bottom-right-radius: 50px !important;
     cursor: pointer;
     // border-top-right-radius: 50px;
     // border-bottom-right-radius: 50px;
@@ -75,6 +75,10 @@
 
 }
 
+.post-login-sidenav {
+  background-color: #1877F2 !important;
+}
+
 @media screen and (max-width: 600px) {
     .post-login-sidenav {
         width: 0px !important;
@@ -96,11 +100,11 @@
 
 .activated-route {
     // border-right: 5px solid #24A0ED !important;
-    background-color: #D0F5FC !important;
-    max-width: 95% !important;
-    border-top-right-radius: 50px !important;
-    border-bottom-right-radius: 50px !important;
-    color: #24A0ED !important;
+    background-color: #1877F2 !important;
+    max-width: 100% !important;
+    // border-top-right-radius: 50px !important;
+    // border-bottom-right-radius: 50px !important;
+    color: #ffffff !important;
     font-weight: bold;
 
 }

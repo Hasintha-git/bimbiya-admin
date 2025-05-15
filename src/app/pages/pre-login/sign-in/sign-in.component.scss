@@ -6,6 +6,7 @@
     align-items: center;
     flex-direction: row;
     overflow: hidden;
+    background-color: #1877F2;
 }
 
 //login form side css >>>>>>>>>>>>
@@ -24,6 +25,7 @@
         height: 480px;
         border-radius: 20px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        background-color: #ffffff;
     }
 
     .login-side1-row {
@@ -118,7 +120,7 @@
     }
 }
 .login-side2-image {
-    width: 150px;
+    width: 150px !important;
     height: auto;
 }
 
